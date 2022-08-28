@@ -20,8 +20,8 @@ right_stepper.turn_stepper_angle(1000, True, True)
 
 time.sleep(3)
 
-left_stepper.turn_stepper_angle(1000, False, True)
-right_stepper.turn_stepper_angle(1000, False, True)
+left_stepper.turn_stepper_angle(1000, True, False)
+right_stepper.turn_stepper_angle(1000, True, False)
 
 time.sleep(3)
 
