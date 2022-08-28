@@ -15,8 +15,8 @@ right_stepper = stepper.stepper(
 
 right_stepper.set_direction_clockwise(False)
 
-left_stepper.turn_stepper_angle(1000, True, True)
-right_stepper.turn_stepper_angle(1000, True, True)
+left_stepper.turn_stepper_angle(3000, True, True)
+right_stepper.turn_stepper_angle(3000, True, True)
 
 time.sleep(3)
 
