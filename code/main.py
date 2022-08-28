@@ -22,7 +22,7 @@ right_stepper.run_continuously()
 time.sleep(2)
 
 left_stepper.stop_continuous()
-left_stepper.stop_continuous()
+right_stepper.stop_continuous()
 
 time.sleep(1)
 
