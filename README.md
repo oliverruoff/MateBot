@@ -15,6 +15,15 @@ A bigger robot that is built around some small IKEA furniture.
 
 ## Pin Setup
 
+### Stepper Wiring
+
+| Stepper | RST | SLP | STEP | DIR | M0 | M1 | M2 |
+|-|-|-|-|-|-|-|-|
+| Front Left | b | c | d | e |
+| Front Right | 3.3V | 10 | 9 | 11 | 7 | 8 | 25 |
+| Back Left | b | c | d | e |
+| Back Right | b | c | d | e |
+
 ### Left Stepper
 
 - RST:	3.3V (any)
