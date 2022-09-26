@@ -146,7 +146,9 @@ class stepper:
         """
         self.activate_stepper()
         steps = int(self.steps_per_revolution/360*degree)
+        print('Steps required:', steps)
         for i in range(steps):
+            print('step:', i)
             if ramping:
                 delay = self._ramping_function(i, steps)
             else:
