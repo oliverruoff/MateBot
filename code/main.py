@@ -13,13 +13,7 @@ left_stepper = stepper.stepper(
 right_stepper = stepper.stepper(
     DIR=11, STEP=9, SLP=10, steps_per_revolution=200, stepper_delay_seconds=0.0005, gpio_mode=GPIO.BCM)
 
-right_stepper.set_direction_clockwise(False)
+right_stepper.turn_stepper_angle(360, False, True)
 
-left_stepper.run_continuously()
-right_stepper.run_continuously()
-
-time.sleep(1)
-
-left_stepper.deactivate_stepper()
-right_stepper.deactivate_stepper()
+#right_stepper.deactivate_stepper()
 
