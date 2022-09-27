@@ -22,13 +22,13 @@ back_right_stepper = stepper.stepper(
 front_left_stepper.set_direction_clockwise(False)
 back_left_stepper.set_direction_clockwise(False)
 
-front_right_stepper.turn_stepper_angle(720, True, False)
+front_right_stepper.turn_stepper_angle(720, True, True)
 
-front_left_stepper.turn_stepper_angle(720, True, False)
+front_left_stepper.turn_stepper_angle(720, True, True)
 
-back_right_stepper.turn_stepper_angle(720, True, False)
+back_right_stepper.turn_stepper_angle(720, True, True)
 
-back_left_stepper.turn_stepper_angle(720, False, False)
+back_left_stepper.turn_stepper_angle(720, False, True)
 
 # removing holding torque
 
