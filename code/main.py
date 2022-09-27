@@ -27,10 +27,10 @@ back_right_stepper.set_stepper_mode('1/16')
 front_left_stepper.set_direction_clockwise(False)
 back_left_stepper.set_direction_clockwise(False)
 
-front_right_stepper.run_continuously()
-front_left_stepper.run_continuously()
-back_right_stepper.run_continuously()
-back_left_stepper.run_continuously()
+front_right_stepper.run_continuously(frequency=500)
+front_left_stepper.run_continuously(frequency=500)
+back_right_stepper.run_continuously(frequency=500)
+back_left_stepper.run_continuously(frequency=500)
 
 time.sleep(2)
 
