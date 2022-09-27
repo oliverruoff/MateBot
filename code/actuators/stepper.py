@@ -208,7 +208,6 @@ class stepper:
         stepper_mode_multiplier = self._get_stepper_multiplier_from_mode()
 
         steps = int(self.steps_per_revolution/360*degree) * stepper_mode_multiplier
-        print('Making steps:', steps) #TODO: Remove log
         for i in range(steps):
             if ramping:
                 delay = self._ramping_function(i, steps)
