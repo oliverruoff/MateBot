@@ -7,16 +7,27 @@ import pigpio
 CW = 1     # Clockwise Rotation
 CCW = 0    # Counterclockwise Rotation
 
+# For microstepping
+RESOLUTION = {'Full': (0, 0, 0),
+              'Half': (1, 0, 0),
+              '1/4':  (0, 1, 0),
+              '1/8':  (1, 1, 0),
+              '1/16': (0, 0, 1),
+              '1/32': (1, 0, 1)}
 
 class stepper:
     """This class is for handling the DRV8825 motor driver. E.g. to operate
         common bigger stepper motors.
         """
 
-    def __init__(self, DIR, STEP, SLP, steps_per_revolution, RST=None, stepper_delay_seconds=.005, gpio_mode=GPIO.BCM):
+    def __init__(self, DIR, STEP, SLP, steps_per_revolution, M0, M1, M2, RST, stepper_mode='Full', stepper_delay_seconds=.005, gpio_mode=GPIO.BCM):
         self.DIR = DIR
         self.STEP = STEP
         self.RST = RST
+        self.M0 = M0
+        self.M1 = M1
+        self.M2 = M2
+        self.stepper_mode = stepper_mode
         # If set to Low, there is no holding torque on the motor
         self.SLP = SLP
         # Steps per Revolution (360 / 1.8) (1,8° per step (oruoff))
@@ -34,6 +45,15 @@ class stepper:
         if RST is not None:
             GPIO.setup(self.RST, GPIO.OUT)
             GPIO.output(self.RST, GPIO.HIGH)
+
+        if M0 is not None:
+            GPIO.setup(self.M0, GPIO.OUT)
+
+        if M1 is not None:
+            GPIO.setup(self.M1, GPIO.OUT)
+
+        if M2 is not None:
+            GPIO.setup(self.M2, GPIO.OUT)
 
         GPIO.setup(self.DIR, GPIO.OUT)
         GPIO.setup(self.STEP, GPIO.OUT)
@@ -60,6 +80,21 @@ class stepper:
         In a deactivated state, the stepper will not be able to move.
         """
         GPIO.output(self.SLP, GPIO.LOW)
+
+    def set_stepper_mode(self, mode):
+        """Sets the stepper mode to one of 'Full', 'Half', '1/4', '1/8', '1/16', '1/32'.
+        Next usage of the stepper will take this stepper mode.
+
+        Args:
+            mode (str): Stepper mode. One of ['Full', 'Half', '1/4', '1/8', '1/16', '1/32']
+        """
+        if None in [self.M0, self.M1, self.M2]:
+            print('M0, M1, or M2 not defined! ->', [self.M0, self.M1, self.M2])
+        else:
+            self.stepper_mode = mode
+            self.pi.write(self.M0, RESOLUTION[mode][0])
+            self.pi.write(self.M1, RESOLUTION[mode][1])
+            self.pi.write(self.M2, RESOLUTION[mode][2])
 
     def run_continuously(self, dutycycle=128, frequency=320):
         """Activated, the stepper will continuously run with the desired frequency.
@@ -100,7 +135,7 @@ class stepper:
 
     def turn_stepper_angle(self, degree, asynch, ramping=False):
         """Turns the stepper for a precise angle. Can be called
-        either synchronous or asynchronously.
+        either synchronous or asynchronously. Stepper mode is respected.
 
         Args:
             degree (int): The angle in degree, on how much the stepper will
@@ -135,6 +170,31 @@ class stepper:
             self.stepper_delay_seconds + self.stepper_delay_seconds
         return y
 
+    def _get_stepper_multiplier_from_mode(self):
+        """Checks current self.stepper_mode and returns multiplier for it, which is used to 
+        get the required number of steps to turn for a specific angle.
+
+        Returns:
+            int: Multiplier which is multiplied with steps required for microstepping a specific angle.
+        """
+        stepper_mode_multiplier = -1
+        if self.stepper_mode == 'Full':
+            stepper_mode_multiplier = 1
+        elif self.stepper_mode == 'Half':
+            stepper_mode_multiplier = 2
+        elif self.stepper_mode == '1/4':
+            stepper_mode_multiplier = 4
+        elif self.stepper_mode == '1/8':
+            stepper_mode_multiplier = 8
+        elif self.stepper_mode == '1/16':
+            stepper_mode_multiplier = 16
+        elif self.stepper_mode == '1/32':
+            stepper_mode_multiplier = 32
+        else:
+            print('Failed to get stepper mode multiplier!')
+            return None
+        return stepper_mode_multiplier
+
     def _turn_stepper(self, degree, ramping=False):
         """This function is for turning the stepper for a precise angle.
         This function should be called with the `turn_stepper_angle` function,
@@ -145,7 +205,10 @@ class stepper:
             ramping (bool): Defines wheather the stepper should ramp up and down its movement.
         """
         self.activate_stepper()
-        steps = int(self.steps_per_revolution/360*degree)
+        stepper_mode_multiplier = self._get_stepper_multiplier_from_mode()
+
+        steps = int(self.steps_per_revolution/360*degree) * stepper_mode_multiplier
+        print('Making steps:', steps) #TODO: Remove log
         for i in range(steps):
             if ramping:
                 delay = self._ramping_function(i, steps)
@@ -157,7 +220,7 @@ class stepper:
             sleep(delay)
 
     def make_one_step(self):
-        """Makes exactly one full step.
+        """Executes exactly one full step.
         """
         self.activate_stepper()
         GPIO.output(self.STEP, GPIO.HIGH)
