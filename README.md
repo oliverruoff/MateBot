@@ -19,10 +19,10 @@ A bigger robot that is built around some small IKEA furniture.
 
 | Stepper | RST | SLP | STEP | DIR | M0 | M1 | M2 |
 |-|-|-|-|-|-|-|-|
-| Front Left | b | c | d | e |
+| Front Left | 3.3V | 2 | 3 | 4 | 7 | 8 | 25 |
 | Front Right | 3.3V | 10 | 9 | 11 | 7 | 8 | 25 |
-| Back Left | b | c | d | e |
-| Back Right | b | c | d | e |
+| Back Left | 3.3V | 13 | 19 | 26 | 7 | 8 | 25 |
+| Back Right | 3.3V | 16 | 20 | 21 | 7 | 8 | 25 |
 
 ### Left Stepper
 
