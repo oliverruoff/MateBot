@@ -20,7 +20,7 @@ class stepper:
         common bigger stepper motors.
         """
 
-    def __init__(self, DIR, STEP, SLP, steps_per_revolution, M0, M1, M2, RST, stepper_mode='Full', stepper_delay_seconds=.005, gpio_mode=GPIO.BCM):
+    def __init__(self, DIR, STEP, SLP, steps_per_revolution, M0=None, M1=None, M2=None, RST=None, stepper_mode='Full', stepper_delay_seconds=.005, gpio_mode=GPIO.BCM):
         self.DIR = DIR
         self.STEP = STEP
         self.RST = RST
