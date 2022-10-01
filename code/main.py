@@ -31,13 +31,13 @@ try:
 
     
     robo.drive_cm(50, True)
-    #robo.turn_degree(90, True)
-    #robo.drive_cm(50, True)
-    #robo.turn_degree(90, True)
-    #robo.drive_cm(50, True)
-    #robo.turn_degree(90, True)
-    #robo.drive_cm(50, True)
-    #robo.turn_degree(90, True)
+    robo.turn_degree(90, True)
+    robo.drive_cm(50, True)
+    robo.turn_degree(90, True)
+    robo.drive_cm(50, True)
+    robo.turn_degree(90, True)
+    robo.drive_cm(50, True)
+    robo.turn_degree(90, True)
 
 
 except KeyboardInterrupt:
