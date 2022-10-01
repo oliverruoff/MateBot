@@ -20,7 +20,7 @@ back_right_stepper = stepper.stepper(
     DIR=21, STEP=20, SLP=16, M0=7, M1=8, M2=25, steps_per_revolution=200, stepper_delay_seconds=0.0005, gpio_mode=GPIO.BCM)
 
 #front_left_stepper.set_stepper_mode('1/16')
-front_right_stepper.set_stepper_mode('Full')
+#front_right_stepper.set_stepper_mode('Full')
 #back_left_stepper.set_stepper_mode('1/16')
 #back_right_stepper.set_stepper_mode('1/16')
 
@@ -34,21 +34,29 @@ front_right_stepper.set_stepper_mode('Full')
 
 #time.sleep(2)
 
-front_right_stepper.turn_stepper_angle(360, False, False)
+#front_right_stepper.turn_stepper_angle(360, False, False)
 
-front_right_stepper.stop_continuous()
-front_left_stepper.stop_continuous()
-back_right_stepper.stop_continuous()
-back_left_stepper.stop_continuous()
+#front_right_stepper.stop_continuous()
+#front_left_stepper.stop_continuous()
+#back_right_stepper.stop_continuous()
+#back_left_stepper.stop_continuous()
 
 
 # removing holding torque
 
-front_right_stepper.deactivate_stepper()
+front_right_stepper.activate_stepper()
 
-front_left_stepper.deactivate_stepper()
+front_left_stepper.activate_stepper()
 
-back_right_stepper.deactivate_stepper()
+back_right_stepper.activate_stepper()
 
-back_left_stepper.deactivate_stepper()
+back_left_stepper.activate_stepper()
+
+#front_right_stepper.deactivate_stepper()
+
+#front_left_stepper.deactivate_stepper()
+
+#back_right_stepper.deactivate_stepper()
+
+#back_left_stepper.deactivate_stepper()
 
