@@ -11,9 +11,9 @@ class Robot:
         self.position_Y = 0
         self.heading = 0
 
-        self.TYRE_CIRCUMFERENCE_CM = 18.85              # manually determined
-        self.ROBOT_CIRCUMFERENCE_CM = 141               # manually determined
-        self.TURNING_ERROR_MULTIPLIER = 1               # manually determined
+        self.TYRE_CIRCUMFERENCE_CM = 18.85                # manually determined
+        self.ROBOT_CIRCUMFERENCE_CM = 166.5               # manually determined
+        self.TURNING_ERROR_MULTIPLIER = 1                 # manually determined
 
     def turn_all_steppers_angle(self, degree, asynch, ramping):
         if asynch:
