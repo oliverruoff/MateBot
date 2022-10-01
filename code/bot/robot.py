@@ -26,6 +26,7 @@ class Robot:
             self.back_right_stepper.turn_stepper_angle(
                 degree, True, ramping)
         else:
+            print('synch')
             self.front_left_stepper.turn_stepper_angle(
                 degree, True, ramping)
             self.front_right_stepper.turn_stepper_angle(
