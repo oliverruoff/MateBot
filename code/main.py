@@ -22,6 +22,11 @@ try:
     back_right_stepper = stepper.stepper(
         DIR=21, STEP=20, SLP=16, M0=7, M1=8, M2=25, steps_per_revolution=200, stepper_delay_seconds=0.000005, gpio_mode=GPIO.BCM)
 
+    front_left_stepper.set_stepper_mode('1/32')
+    front_right_stepper.set_stepper_mode('1/32')
+    back_left_stepper.set_stepper_mode('1/32')
+    back_right_stepper.set_stepper_mode('1/32')
+
     robo = robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper)
 
     
