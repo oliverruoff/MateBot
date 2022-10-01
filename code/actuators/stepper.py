@@ -143,7 +143,6 @@ class stepper:
             asynch (bool): Flag wheather this function (and therefore the motor), will turn
             synchronously or asynchronously.
         """
-        print('Turn stepper angle: ', degree, asynch, ramping)
         if (asynch):
             thread = threading.Thread(
                 target=self._turn_stepper, args=([degree, ramping]), kwargs={})
