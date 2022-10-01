@@ -30,14 +30,14 @@ try:
     robo = robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper)
 
     
-    #robo.drive_cm(50, True)
-    robo.turn_degree(360, True)
-    #robo.drive_cm(50, True)
-    #robo.turn_degree(90, True)
-    #robo.drive_cm(50, True)
-    #robo.turn_degree(90, True)
-    #robo.drive_cm(50, True)
-    #robo.turn_degree(90, True)
+    robo.drive_cm(50, True)
+    robo.turn_degree(90, True)
+    robo.drive_cm(50, True)
+    robo.turn_degree(90, True)
+    robo.drive_cm(50, True)
+    robo.turn_degree(90, True)
+    robo.drive_cm(50, True)
+    robo.turn_degree(90, True)
 
     front_right_stepper.deactivate_stepper()
     front_left_stepper.deactivate_stepper()
