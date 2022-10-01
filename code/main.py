@@ -39,6 +39,10 @@ try:
     robo.drive_cm(50, True)
     robo.turn_degree(90, True)
 
+    front_right_stepper.deactivate_stepper()
+    front_left_stepper.deactivate_stepper()
+    back_right_stepper.deactivate_stepper()
+    back_left_stepper.deactivate_stepper()
 
 except KeyboardInterrupt:
 
