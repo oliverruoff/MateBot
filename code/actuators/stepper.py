@@ -88,10 +88,10 @@ class stepper:
         Args:
             mode (str): Stepper mode. One of ['Full', 'Half', '1/4', '1/8', '1/16', '1/32']
         """
+        self.stepper_mode = mode
         if None in [self.M0, self.M1, self.M2]:
-            print('M0, M1, or M2 not defined! ->', [self.M0, self.M1, self.M2])
+            print('M0, M1, or M2 not defined! ->', [self.M0, self.M1, self.M2], '. Mode set though.')
         else:
-            self.stepper_mode = mode
             self.pi.write(self.M0, RESOLUTION[mode][0])
             self.pi.write(self.M1, RESOLUTION[mode][1])
             self.pi.write(self.M2, RESOLUTION[mode][2])
