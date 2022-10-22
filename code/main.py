@@ -10,7 +10,7 @@ try:
     # Initializing sensors, motors, etc.
     ####################################
     front_left_stepper = stepper.stepper(
-        DIR=19, STEP=13, SLP=26, gpio_mode=GPIO.BCM)
+        DIR=19, STEP=13, SLP=26, steps_per_revolution=200, gpio_mode=GPIO.BCM)
 
     front_left_stepper.set_direction_clockwise()
 
