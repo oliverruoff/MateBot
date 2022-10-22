@@ -23,6 +23,11 @@ try:
 
     #robo = robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper)
 
+    back_left_stepper.set_stepper_mode('1/32')
+    back_right_stepper.set_stepper_mode('1/32')
+    front_left_stepper.set_stepper_mode('1/32')
+    front_right_stepper.set_stepper_mode('1/32')
+
     back_left_stepper.turn_stepper_angle(360, False)
     back_right_stepper.turn_stepper_angle(360, False)
     front_left_stepper.turn_stepper_angle(360, False)
