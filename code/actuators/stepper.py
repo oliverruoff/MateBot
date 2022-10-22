@@ -73,13 +73,13 @@ class stepper:
         """Activates the stepper, which also will put holding torque on the stepper.
         This is required in order to move the stepper.
         """
-        GPIO.output(self.SLP, GPIO.HIGH)
+        GPIO.output(self.SLP, GPIO.LOW)
 
     def deactivate_stepper(self):
         """Deactivates the stepper and also releases holding torque on the stepper.
         In a deactivated state, the stepper will not be able to move.
         """
-        GPIO.output(self.SLP, GPIO.LOW)
+        GPIO.output(self.SLP, GPIO.HIGH)
 
     def set_stepper_mode(self, mode):
         """Sets the stepper mode to one of 'Full', 'Half', '1/4', '1/8', '1/16', '1/32'.
