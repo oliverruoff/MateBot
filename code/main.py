@@ -12,6 +12,8 @@ try:
     front_left_stepper = stepper.stepper(
         DIR=19, STEP=13, SLP=26, M0=None, M1=None, M2=None, steps_per_revolution=200, stepper_delay_seconds=0.00001, gpio_mode=GPIO.BCM)
 
+    front_left_stepper.set_direction_clockwise()
+
     front_left_stepper.turn_stepper_angle(360, False, False)
 
     #front_right_stepper = stepper.stepper(
