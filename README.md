@@ -2,40 +2,23 @@
 A bigger robot that is built around some small IKEA furniture.
 
 
-## Todos
+## Wiring
 
-- Einbaumöglichkeit für:
-	- Raspberry
-	- Motor Treiber
-- Stromversorgung Elektronik
-- Software Motoren
-- Treiber für Lidar
-- Mount für Lidar
-- Ultraschallsensoren
+### Drive Steppers
 
-## Pin Setup
+| Stepper |ENA | STEP | DIR |
+|-|-|-|-|
+| Front Left | 26 | 19 | 13 |
+| Front Right | 26 | 9 | 11 |
+| Back Left | 26 | 19 | 26 |
+| Back Right | 26 | 20 | 21 |
 
-### Stepper Wiring
+### Lidar Stepper
 
-| Stepper | RST | SLP | STEP | DIR | M0 | M1 | M2 |
-|-|-|-|-|-|-|-|-|
-| Front Left | 3.3V | 2 | 3 | 4 | 7 | 8 | 25 |
-| Front Right | 3.3V | 10 | 9 | 11 | 7 | 8 | 25 |
-| Back Left | 3.3V | 13 | 19 | 26 | 7 | 8 | 25 |
-| Back Right | 3.3V | 16 | 20 | 21 | 7 | 8 | 25 |
+### Lidar
 
-### Left Stepper
+### Sonic Sensors
 
-- RST:	3.3V (any)
-- SLP:	GPIO 2
-- STEP:	GPIO 3
-- DIR:	GPIO 4
-- GND:	GND (any)
+### CJMCU-219 INA219 Voltage / Current Meter
 
-### Right Stepper
-
-- RST:	3.3V (any)
-- SLP:	GPIO 10
-- STEP:	GPIO 9
-- DIR:	GPIO 11
-- GND:	GND (any)
+### MPU6050 Gyroscope / Acceleration Sensor
