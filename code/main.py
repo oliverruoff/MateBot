@@ -10,11 +10,17 @@ try:
     # Initializing sensors, motors, etc.
     ####################################
     front_left_stepper = stepper.stepper(
-        DIR=19, STEP=13, SLP=26, M0=None, M1=None, M2=None, steps_per_revolution=200, stepper_delay_seconds=0.00001, gpio_mode=GPIO.BCM)
+        DIR=19, STEP=13, SLP=26, gpio_mode=GPIO.BCM)
 
     front_left_stepper.set_direction_clockwise()
 
-    front_left_stepper.turn_stepper_angle(360, False, False)
+    front_left_stepper.run_continuously()
+    time.sleep(2)
+    front_left_stepper.stop_continuous()
+
+
+
+    #front_left_stepper.turn_stepper_angle(360, False, False)
 
     #front_right_stepper = stepper.stepper(
     #    DIR=11, STEP=9, SLP=10, M0=7, M1=8, M2=25, steps_per_revolution=200, stepper_delay_seconds=0.00001, gpio_mode=GPIO.BCM)
