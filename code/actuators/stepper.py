@@ -4,8 +4,8 @@ import threading
 import RPi.GPIO as GPIO
 import pigpio
 
-CW = 0     # Clockwise Rotation
-CCW = 1    # Counterclockwise Rotation
+CW = 1     # Clockwise Rotation
+CCW = 0    # Counterclockwise Rotation
 
 # For microstepping
 RESOLUTION = {'Full': (0, 0, 0),
