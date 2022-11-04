@@ -34,7 +34,7 @@ try:
     back_left_stepper.turn_angle(720, True)
     back_right_stepper.turn_angle(720, True)
     front_left_stepper.turn_angle(720, True)
-    front_right_stepper.turn_angle(720, True)
+    front_right_stepper.turn_angle(720, False)
 
     front_left_stepper.set_direction_clockwise(True)
     back_left_stepper.set_direction_clockwise(True)
@@ -44,7 +44,7 @@ try:
     back_left_stepper.turn_angle(720, True)
     back_right_stepper.turn_angle(720, True)
     front_left_stepper.turn_angle(720, True)
-    front_right_stepper.turn_angle(720, True)
+    front_right_stepper.turn_angle(720, False)
 
     back_right_stepper.set_direction_clockwise(True)
     back_left_stepper.set_direction_clockwise(False)
@@ -52,7 +52,7 @@ try:
     back_left_stepper.turn_angle(720, True)
     back_right_stepper.turn_angle(720, True)
     front_left_stepper.turn_angle(720, True)
-    front_right_stepper.turn_angle(720, True)
+    front_right_stepper.turn_angle(720, False)
 
     front_left_stepper.set_direction_clockwise(False)
     back_left_stepper.set_direction_clockwise(True)
@@ -62,7 +62,7 @@ try:
     back_left_stepper.turn_angle(720, True)
     back_right_stepper.turn_angle(720, True)
     front_left_stepper.turn_angle(720, True)
-    front_right_stepper.turn_angle(720, True)
+    front_right_stepper.turn_angle(720, False)
 
     #robo.drive_cm(50, True)
     #robo.turn_degree(90, True)
