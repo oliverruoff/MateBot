@@ -15,7 +15,7 @@ class Robot:
 
         self.TYRE_CIRCUMFERENCE_CM = math.pi * 8          # manually determined
         self.ROBOT_CIRCUMFERENCE_CM = math.pi * 50        # manually determined
-        self.TURNING_ERROR_MULTIPLIER = 1                 # manually determined
+        self.TURNING_ERROR_MULTIPLIER = 1.36              # manually determined
 
     def turn_all_steppers_angle(self, degree, asynch, ramping):
         if asynch:
