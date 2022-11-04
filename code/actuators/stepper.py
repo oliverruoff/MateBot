@@ -133,7 +133,7 @@ class stepper:
         """
         return bool(self.direction)
 
-    def turn_stepper_angle(self, degree, asynch, ramping=False):
+    def turn_angle(self, degree, asynch, ramping=False):
         """Turns the stepper for a precise angle. Can be called
         either synchronous or asynchronously. Stepper mode is respected.
 
@@ -214,6 +214,7 @@ class stepper:
             else:
                 delay = self.stepper_delay_seconds
             GPIO.output(self.STEP, GPIO.HIGH)
+            print('Sleeping for,', delay, 'seconds.')
             sleep(delay)
             GPIO.output(self.STEP, GPIO.LOW)
             sleep(delay)

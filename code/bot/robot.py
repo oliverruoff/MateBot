@@ -17,22 +17,22 @@ class Robot:
 
     def turn_all_steppers_angle(self, degree, asynch, ramping):
         if asynch:
-            self.front_left_stepper.turn_stepper_angle(
+            self.front_left_stepper.turn_angle(
                 degree, True, ramping)
-            self.front_right_stepper.turn_stepper_angle(
+            self.front_right_stepper.turn_angle(
                 degree, True, ramping)
-            self.back_left_stepper.turn_stepper_angle(
+            self.back_left_stepper.turn_angle(
                 degree, True, ramping)
-            self.back_right_stepper.turn_stepper_angle(
+            self.back_right_stepper.turn_angle(
                 degree, True, ramping)
         else:
-            self.front_left_stepper.turn_stepper_angle(
+            self.front_left_stepper.turn_angle(
                 degree, True, ramping)
-            self.front_right_stepper.turn_stepper_angle(
+            self.front_right_stepper.turn_angle(
                 degree, True, ramping)
-            self.back_left_stepper.turn_stepper_angle(
+            self.back_left_stepper.turn_angle(
                 degree, True, ramping)
-            self.back_right_stepper.turn_stepper_angle(
+            self.back_right_stepper.turn_angle(
                 degree, False, ramping)
 
     def drive_cm(self, cm, forward, ramping=False):
