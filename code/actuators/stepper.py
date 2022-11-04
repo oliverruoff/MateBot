@@ -214,7 +214,6 @@ class stepper:
             else:
                 delay = self.stepper_delay_seconds
             GPIO.output(self.STEP, GPIO.HIGH)
-            print('Sleeping for,', delay, 'seconds.')
             sleep(delay)
             GPIO.output(self.STEP, GPIO.LOW)
             sleep(delay)
