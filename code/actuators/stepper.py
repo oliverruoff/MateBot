@@ -20,7 +20,7 @@ class stepper:
         common bigger stepper motors.
         """
 
-    def __init__(self, DIR, STEP, SLP, steps_per_revolution, M0=None, M1=None, M2=None, RST=None, stepper_mode='Full', stepper_delay_seconds=.005, gpio_mode=GPIO.BCM):
+    def __init__(self, DIR, STEP, SLP, steps_per_revolution, M0=None, M1=None, M2=None, RST=None, stepper_mode='Full', stepper_delay_seconds=.005, activate_on_high=True, gpio_mode=GPIO.BCM):
         self.DIR = DIR
         self.STEP = STEP
         self.RST = RST
@@ -34,6 +34,7 @@ class stepper:
         self.steps_per_revolution = steps_per_revolution
 
         self.stepper_delay_seconds = stepper_delay_seconds
+        self.activate_on_high = activate_on_high
         self.gpio_mode = gpio_mode
 
         self.pi = pigpio.pi()
@@ -73,13 +74,19 @@ class stepper:
         """Activates the stepper, which also will put holding torque on the stepper.
         This is required in order to move the stepper.
         """
-        GPIO.output(self.SLP, GPIO.LOW)
+        if self.activate_on_high:
+            GPIO.output(self.SLP, GPIO.HIGH)
+        else:
+            GPIO.output(self.SLP, GPIO.LOW)
 
     def deactivate_stepper(self):
         """Deactivates the stepper and also releases holding torque on the stepper.
         In a deactivated state, the stepper will not be able to move.
         """
-        GPIO.output(self.SLP, GPIO.HIGH)
+        if self.activate_on_high:
+            GPIO.output(self.SLP, GPIO.LOW)
+        else:
+            GPIO.output(self.SLP, GPIO.HIGH)
 
     def set_stepper_mode(self, mode):
         """Sets the stepper mode to one of 'Full', 'Half', '1/4', '1/8', '1/16', '1/32'.
