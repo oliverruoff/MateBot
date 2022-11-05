@@ -22,7 +22,7 @@ try:
         DIR=6, STEP=5, SLP=26, steps_per_revolution=200, stepper_delay_seconds=0.00001, activate_on_high=False, gpio_mode=GPIO.BCM)
 
     lidar_stepper = stepper.stepper(
-        DIR=16, STEP=20, SLP=21, steps_per_revolution=200, stepper_delay_seconds=0.00001, activate_on_high=True, gpio_mode=GPIO.BCM)
+        DIR=16, STEP=20, SLP=21, steps_per_revolution=200, stepper_delay_seconds=0.005, activate_on_high=True, gpio_mode=GPIO.BCM)
 
     robo = robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper)
 
@@ -75,14 +75,14 @@ try:
     front_left_stepper.turn_angle(720, True)
     front_right_stepper.turn_angle(720, False)'''
 
-    #robo.drive_cm(50, True)
-    #robo.turn_degree(90, True)
-    #robo.drive_cm(50, True)
-    #robo.turn_degree(90, True)
-    #robo.drive_cm(50, True)
-    #robo.turn_degree(90, True)
-    #robo.drive_cm(50, True)
-    #robo.turn_degree(90, True)
+    robo.drive_cm(50, True)
+    robo.turn_degree(90, True)
+    robo.drive_cm(50, True)
+    robo.turn_degree(90, True)
+    robo.drive_cm(50, True)
+    robo.turn_degree(90, True)
+    robo.drive_cm(50, True)
+    robo.turn_degree(90, True)
 
     front_right_stepper.deactivate_stepper()
     front_left_stepper.deactivate_stepper()
