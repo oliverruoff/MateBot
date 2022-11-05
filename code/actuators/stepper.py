@@ -220,6 +220,7 @@ class stepper:
                 delay = self._ramping_function(i, steps)
             else:
                 delay = self.stepper_delay_seconds
+            print('stepping with delay:', delay)
             GPIO.output(self.STEP, GPIO.HIGH)
             sleep(delay)
             GPIO.output(self.STEP, GPIO.LOW)
