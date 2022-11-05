@@ -32,8 +32,12 @@ try:
     front_right_stepper.set_stepper_mode('1/32')
     lidar_stepper.set_stepper_mode('Full')
 
-    lidar_stepper.activate_stepper()
-    time.sleep(10000)
+    lidar_stepper.turn_angle(90, False)
+    lidar_stepper.set_direction_clockwise(False)
+    lidar_stepper.turn_angle(180, False)
+    lidar_stepper.set_direction_clockwise(True)
+    lidar_stepper.turn_angle(90, False)
+
     '''
     front_left_stepper.set_direction_clockwise(False)
     back_left_stepper.set_direction_clockwise(False)
