@@ -21,12 +21,19 @@ try:
     back_right_stepper = stepper.stepper(
         DIR=6, STEP=5, SLP=26, steps_per_revolution=200, stepper_delay_seconds=0.00001, gpio_mode=GPIO.BCM)
 
+    lidar_stepper = stepper.stepper(
+        DIR=16, STEP=20, SLP=21, steps_per_revolution=200, stepper_delay_seconds=0.00001, gpio_mode=GPIO.BCM)
+
     robo = robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper)
 
     back_left_stepper.set_stepper_mode('1/32')
     back_right_stepper.set_stepper_mode('1/32')
     front_left_stepper.set_stepper_mode('1/32')
     front_right_stepper.set_stepper_mode('1/32')
+    lidar_stepper.set_stepper_mode('Full')
+
+    lidar_stepper.activate_stepper()
+    time.sleep(10000)
     '''
     front_left_stepper.set_direction_clockwise(False)
     back_left_stepper.set_direction_clockwise(False)
@@ -77,6 +84,7 @@ try:
     front_left_stepper.deactivate_stepper()
     back_right_stepper.deactivate_stepper()
     back_left_stepper.deactivate_stepper()
+    lidar_stepper.deactivate_stepper()
 
 except KeyboardInterrupt:
 
@@ -85,4 +93,5 @@ except KeyboardInterrupt:
     front_left_stepper.deactivate_stepper()
     back_right_stepper.deactivate_stepper()
     back_left_stepper.deactivate_stepper()
+    lidar_stepper.deactivate_stepper()
 
