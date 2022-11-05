@@ -75,14 +75,14 @@ try:
     front_left_stepper.turn_angle(720, True)
     front_right_stepper.turn_angle(720, False)'''
 
-    robo.drive_cm(50, True)
-    robo.turn_degree(90, True)
-    robo.drive_cm(50, True)
-    robo.turn_degree(90, True)
-    robo.drive_cm(50, True)
-    robo.turn_degree(90, True)
-    robo.drive_cm(50, True)
-    robo.turn_degree(90, True)
+    #robo.drive_cm(50, True)
+    #robo.turn_degree(90, True)
+    #robo.drive_cm(50, True)
+    #robo.turn_degree(90, True)
+    #robo.drive_cm(50, True)
+    #robo.turn_degree(90, True)
+    #robo.drive_cm(50, True)
+    #robo.turn_degree(90, True)
 
     front_right_stepper.deactivate_stepper()
     front_left_stepper.deactivate_stepper()
