@@ -53,7 +53,7 @@ try:
 
             old_time = new_time
 
-            print('Accel: X:', ax, '\tY:', ay, '\tZ:',az, '\tGyro: X:', gx, '\tY:', gy, '\TZ:', gz)
+            print('Accel: X:', int(ax), '\tY:', int(ay), '\tZ:',int(az), '\tGyro: X:', int(gx), '\tY:', int(gy), '\tZ:', int(gz))
 
 
             time.sleep(0.01)
