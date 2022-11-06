@@ -37,18 +37,6 @@ try:
     front_right_stepper.set_stepper_mode('1/32')
     lidar_stepper.set_stepper_mode('Full')
 
-    old_time = time.time()
-    angle = 0
-
-    while True:
-        new_time = time.time()
-        # Get angle from mpu sensor
-        angle = mpu.get_new_gyro_angle('x', new_time - old_time, angle)
-        old_time = new_time
-        print('Angle:', angle)
-
-        time.sleep(0.01)
-
     #lidar_stepper.turn_angle(90, False)
     #lidar_stepper.set_direction_clockwise(False)
     #lidar_stepper.turn_angle(180, False)
@@ -93,13 +81,13 @@ try:
     front_right_stepper.turn_angle(720, False)'''
 
     robo.drive_cm(50, True)
-    robo.turn_degree(90, True)
+    robo.turn_degree_gyro_supported(90, True)
     robo.drive_cm(50, True)
-    robo.turn_degree(90, True)
+    robo.turn_degree_gyro_supported(90, True)
     robo.drive_cm(50, True)
-    robo.turn_degree(90, True)
+    robo.turn_degree_gyro_supported(90, True)
     robo.drive_cm(50, True)
-    robo.turn_degree(90, True)
+    robo.turn_degree_gyro_supported(90, True)
 
     front_right_stepper.deactivate_stepper()
     front_left_stepper.deactivate_stepper()
