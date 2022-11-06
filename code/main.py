@@ -41,9 +41,9 @@ try:
 
     while True:
             # Get angle from mpu sensor
-            ax = mpu.get_new_accel_angle('x')
-            ay = mpu.get_new_accel_angle('y')
-            az = mpu.get_new_accel_angle('z')
+            #ax = mpu.get_new_accel_angle('x')
+            #ay = mpu.get_new_accel_angle('y')
+            #az = mpu.get_new_accel_angle('z')
             
             new_time = time.time()
 
@@ -53,8 +53,8 @@ try:
 
             old_time = new_time
 
-            print('Accel: X:', int(ax), '\tY:', int(ay), '\tZ:',int(az), '\tGyro: X:', int(gx), '\tY:', int(gy), '\tZ:', int(gz))
-
+            #rint('Accel: X:', int(ax), '\tY:', int(ay), '\tZ:',int(az), '\tGyro: X:', int(gx), '\tY:', int(gy), '\tZ:', int(gz))
+            print('Gyro: X:', int(gx), '\tY:', int(gy), '\tZ:', int(gz))
 
             time.sleep(0.01)
 
