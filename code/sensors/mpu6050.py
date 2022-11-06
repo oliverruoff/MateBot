@@ -80,7 +80,7 @@ class mpu6050:
             value = value - 65536
         return value
 
-    def get_new_gyro_angle(self, axis, time_diff_s, gyro_drift, old_angle=0, raw=False):
+    def get_new_gyro_angle(self, axis, time_diff_s, gyro_drift=None, old_angle=0, raw=False):
         DEGREE_SCALE_CONSTANT = 8
         if axis == 'x':
             raw = self.read_raw_data(GYRO_XOUT_H)
