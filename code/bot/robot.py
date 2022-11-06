@@ -101,7 +101,7 @@ class Robot:
         current_angle = 0
         desired_angle = degree
         self.run_continuously_all_steppers()
-        while current_angle < desired_angle:
+        while abs(current_angle) < desired_angle:
             new_time = time.time()
             # Get angle from mpu sensor
             current_angle = self.mpu.get_new_gyro_angle('x', new_time - old_time, current_angle)
