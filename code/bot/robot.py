@@ -1,13 +1,14 @@
 import math
 
-
 class Robot:
 
-    def __init__(self, front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper):
+    def __init__(self, front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, lidar_stepper, mpu):
         self.front_left_stepper = front_left_stepper
         self.front_right_stepper = front_right_stepper
         self.back_left_stepper = back_left_stepper
         self.back_right_stepper = back_right_stepper
+        self.lidar_stepper = lidar_stepper
+        self.mpu = mpu
 
         self.position_X = 0
         self.position_Y = 0

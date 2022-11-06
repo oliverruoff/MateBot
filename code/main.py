@@ -1,5 +1,7 @@
 from actuators import stepper
+from sensors import mpu6050
 from bot import robot
+
 
 import time
 import RPi.GPIO as GPIO
@@ -24,19 +26,33 @@ try:
     lidar_stepper = stepper.stepper(
         DIR=16, STEP=20, SLP=21, steps_per_revolution=200, stepper_delay_seconds=0.005, activate_on_high=True, gpio_mode=GPIO.BCM)
 
-    robo = robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper)
+    mpu = mpu6050.mpu6050()
 
+    robo = robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, lidar_stepper, mpu)
+
+    # Setting stepper modes (e.g. to particular micro stepping mode)
     back_left_stepper.set_stepper_mode('1/32')
     back_right_stepper.set_stepper_mode('1/32')
     front_left_stepper.set_stepper_mode('1/32')
     front_right_stepper.set_stepper_mode('1/32')
     lidar_stepper.set_stepper_mode('Full')
 
-    lidar_stepper.turn_angle(90, False)
-    lidar_stepper.set_direction_clockwise(False)
-    lidar_stepper.turn_angle(180, False)
-    lidar_stepper.set_direction_clockwise(True)
-    lidar_stepper.turn_angle(90, False)
+    while True:
+            # Get angle from mpu sensor
+            data = mpu.get_angle()
+            comp_angle = int(data[0])
+            gyro_angle = int(data[1])
+            accel_angle = int(data[2])
+            frequency = int(data[3])
+
+            print('MPU data: ', data)
+            time.sleep(0.01)
+
+    #lidar_stepper.turn_angle(90, False)
+    #lidar_stepper.set_direction_clockwise(False)
+    #lidar_stepper.turn_angle(180, False)
+    #lidar_stepper.set_direction_clockwise(True)
+    #lidar_stepper.turn_angle(90, False)
 
     '''
     front_left_stepper.set_direction_clockwise(False)
