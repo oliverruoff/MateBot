@@ -39,11 +39,7 @@ try:
 
     while True:
             # Get angle from mpu sensor
-            data = mpu.get_angle()
-            comp_angle = int(data[0])
-            gyro_angle = int(data[1])
-            accel_angle = int(data[2])
-            frequency = int(data[3])
+            data = mpu.read_raw_data()
 
             print('MPU data: ', data)
             time.sleep(0.01)
