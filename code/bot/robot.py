@@ -105,6 +105,7 @@ class Robot:
             new_time = time.time()
             # Get angle from mpu sensor
             current_angle = abs(self.mpu.get_new_gyro_angle('x', new_time - old_time, current_angle))
+            print('Angle:', current_angle)
             old_time = new_time
             time.sleep(0.01)
 
