@@ -107,8 +107,6 @@ class mpu6050:
         if raw_mode:
             return raw
 
-        print('raw:', raw, 'timediff_s:', time_diff_s)
-
         angle = old_angle + (raw * time_diff_s)
         return angle
 
