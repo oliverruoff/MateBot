@@ -56,7 +56,7 @@ try:
             old_time = new_time
 
             #rint('Accel: X:', int(ax), '\tY:', int(ay), '\tZ:',int(az), '\tGyro: X:', int(gx), '\tY:', int(gy), '\tZ:', int(gz))
-            print('Angle:', mpu.get_full_accel_data)
+            print('Angle:', mpu.get_full_accel_data())
 
             time.sleep(0.01)
 
