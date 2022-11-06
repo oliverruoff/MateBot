@@ -103,13 +103,14 @@ class stepper:
             self.pi.write(self.M1, RESOLUTION[mode][1])
             self.pi.write(self.M2, RESOLUTION[mode][2])
 
-    def run_continuously(self, dutycycle=128, frequency=320):
+    def run_continuously(self, dutycycle=128, frequency=2000):
         """Activated, the stepper will continuously run with the desired frequency.
         The dutycycle describes the distribution of high low states, where 128 is 50% / 50% high / low.
 
         Args:
             dutycycle (int, optional): Describes high / low ratio. 128 is 50%/50%. Defaults to 128.
             frequency (int, optional): Describes the frequency of the stepper's high / low states. Defaults to 320.
+            Can be: 320 / 400 / 500 / 800 / 1000 / 1600 / 2000 / 4000 / 8000
         """
         self.activate_stepper()
         self.pi.set_PWM_dutycycle(self.STEP, dutycycle)
