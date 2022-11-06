@@ -39,7 +39,7 @@ try:
 
     while True:
             # Get angle from mpu sensor
-            data = mpu.read_raw_data()
+            data = mpu.get_new_accel_angle()
 
             print('MPU data: ', data)
             time.sleep(0.01)
