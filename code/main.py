@@ -41,24 +41,13 @@ try:
     angle = 0
 
     while True:
-            # Get angle from mpu sensor
-            #ax = mpu.get_new_accel_angle('x')
-            #ay = mpu.get_new_accel_angle('y')
-            #az = mpu.get_new_accel_angle('z')
-            
-            new_time = time.time()
+        new_time = time.time()
+        # Get angle from mpu sensor
+        angle = mpu.get_new_gyro_angle('x', new_time - old_time, angle)
+        old_time = new_time
+        print('Angle:', angle)
 
-            #angle = mpu.get_new_gyro_angle('x', new_time - old_time, angle)
-
-            #gy = mpu.get_new_gyro_angle('y', new_time - old_time)
-            #gz = mpu.get_new_gyro_angle('z', new_time - old_time)
-
-            old_time = new_time
-
-            #rint('Accel: X:', int(ax), '\tY:', int(ay), '\tZ:',int(az), '\tGyro: X:', int(gx), '\tY:', int(gy), '\tZ:', int(gz))
-            print('Angle:', mpu.get_full_accel_data())
-
-            time.sleep(0.01)
+        time.sleep(0.01)
 
     #lidar_stepper.turn_angle(90, False)
     #lidar_stepper.set_direction_clockwise(False)
