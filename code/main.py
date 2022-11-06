@@ -38,6 +38,7 @@ try:
     lidar_stepper.set_stepper_mode('Full')
 
     old_time = time.time()
+    angle = 0
 
     while True:
             # Get angle from mpu sensor
@@ -47,14 +48,15 @@ try:
             
             new_time = time.time()
 
-            gx = mpu.get_new_gyro_angle('x', new_time - old_time)
-            gy = mpu.get_new_gyro_angle('y', new_time - old_time)
-            gz = mpu.get_new_gyro_angle('z', new_time - old_time)
+            angle = mpu.get_new_gyro_angle('x', new_time - old_time, angle)
+
+            #gy = mpu.get_new_gyro_angle('y', new_time - old_time)
+            #gz = mpu.get_new_gyro_angle('z', new_time - old_time)
 
             old_time = new_time
 
             #rint('Accel: X:', int(ax), '\tY:', int(ay), '\tZ:',int(az), '\tGyro: X:', int(gx), '\tY:', int(gy), '\tZ:', int(gz))
-            print('Gyro: X:', int(gx), '\tY:', int(gy), '\tZ:', int(gz))
+            print('Angle:', angle)
 
             time.sleep(0.01)
 
