@@ -48,7 +48,7 @@ try:
             
             new_time = time.time()
 
-            angle = mpu.get_new_gyro_angle('x', new_time - old_time, angle)
+            #angle = mpu.get_new_gyro_angle('x', new_time - old_time, angle)
 
             #gy = mpu.get_new_gyro_angle('y', new_time - old_time)
             #gz = mpu.get_new_gyro_angle('z', new_time - old_time)
@@ -56,7 +56,7 @@ try:
             old_time = new_time
 
             #rint('Accel: X:', int(ax), '\tY:', int(ay), '\tZ:',int(az), '\tGyro: X:', int(gx), '\tY:', int(gy), '\tZ:', int(gz))
-            print('Angle:', angle)
+            print('Angle:', mpu.get_full_accel_data)
 
             time.sleep(0.01)
 
