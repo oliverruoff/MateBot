@@ -23,9 +23,9 @@ def gen():
     while True:
         rval, frame = vc.read()
         frame = cv2.flip(frame, flipCode=-1)
-        cv2.imwrite(tmp_img_path, frame)
+        ret, jpeg = cv2.imencode('.jpg', frame)
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + open(tmp_img_path, 'rb').read() + b'\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n')
 
 @app.route('/video_feed')
 def video_feed():
