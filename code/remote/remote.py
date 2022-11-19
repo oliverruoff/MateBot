@@ -1,35 +1,34 @@
-import PySimpleGUI as sg
-import cv2
-
-SERVER_ADDRESS = "matebot.local:5000"
-
-cap = cv2.VideoCapture(SERVER_ADDRESS + "/video_feed")
+import tkinter as tk
 
 
-layout = [
-            [
-                [sg.Text("Connected to: " + SERVER_ADDRESS)],
-                [sg.Text(size=(3,1), key='filler', justification='c', pad=(0,0)), sg.Button("🡅")],
-                [sg.Button("🡄"), sg.Button("🡇"), sg.Button("🡆")]
-            ],
-            [
-                sg.Image(filename='', key='image')
-            ]
-        ]
+def up():
+    print('up')
 
-# Create the window
-window = sg.Window("Remote", layout)
+def down_down(event):
+    print('down down', event)
 
-# Create an event loop
-while True:
-    event, values = window.read()
-    # End program if user closes window or
-    # presses the OK button
-    if event == "🡅" or event == sg.WIN_CLOSED:
-        break
+def down_up(event):
+    print('down up', event)
 
-    ret, frame = cap.read()
-    imgbytes = cv2.imencode('.jpg', frame)[1].tobytes()  # ditto
-    window['image'].update(data=imgbytes)
+def left():
+    pass
 
-window.close()
+def right():
+    pass
+
+root = tk.Tk()
+
+button_up = tk.Button(root, text="▲")
+button_down = tk.Button(root, text="▼")
+button_left = tk.Button(root, text="◄")
+button_right = tk.Button(root, text="►")
+
+button_up.grid(row=0, column=1, padx='2', pady='2', sticky='ew')
+button_down.grid(row=1, column=1, padx='2', pady='2', sticky='ew')
+button_down.bind('<ButtonPress-1>', down_down)
+button_down.bind('<ButtonRelease-1>', down_up)
+button_left.grid(row=1, column=0, padx='2', pady='2', sticky='ew')
+button_right.grid(row=1, column=2, padx='2', pady='2', sticky='ew')
+
+
+root.mainloop()

@@ -1,13 +1,6 @@
-from flask import Flask, request, send_file, Response, render_template
-import time
-import socket
-import os
-import io
+from flask import Flask, request, Response
 import cv2
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-tmp_img_path = os.path.join(
-    dir_path, 'tmp_img.jpg')
 
 app = Flask(__name__)
 vc = cv2.VideoCapture(0)
