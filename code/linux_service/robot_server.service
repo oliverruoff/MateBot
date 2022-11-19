@@ -1,0 +1,13 @@
+[Unit]
+Description=Starts a server to remote control the robot.
+After=multi-user.target
+
+[Service]
+Type=simple
+User=pi
+ExecStartPre=/bin/sleep 30
+ExecStart=/usr/bin/authbind --deep /usr/bin/python3 /home/pi/develop/MateBot/code/bot/robot_server.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
