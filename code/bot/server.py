@@ -7,7 +7,7 @@ import cv2
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 tmp_img_path = os.path.join(
-    dir_path, 'remote', 'python server', 'tmp_photo', 'tmp_img.jpg')
+    dir_path, 'tmp_img.jpg')
 
 app = Flask(__name__)
 vc = cv2.VideoCapture(0)
