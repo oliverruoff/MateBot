@@ -1,1 +1,5 @@
-cv2
+open-cv
+numpy
+matplotlib
+cvlib
+tensorflow
