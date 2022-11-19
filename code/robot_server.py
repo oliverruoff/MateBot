@@ -55,13 +55,13 @@ def move():
     bot.run_continuously_all_steppers()
     return "Moving"
 
-@app.route("stop")
+@app.route("/stop")
 def stop():
     global bot
     bot.stop_continously_all_steppers()
     return "Stopped"
 
-@app.route("turn")
+@app.route("/turn")
 def turn():
     direction = request.args.get('direction')
     global bot
