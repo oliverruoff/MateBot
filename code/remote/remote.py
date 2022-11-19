@@ -1,8 +1,14 @@
 import tkinter as tk
+import urllib.request
 
+SERVER_ADDRESS = "matebot.local:5000/"
 
-def up():
-    print('up')
+def up_up():
+    print('up up')
+
+def up_down():
+    contents = urllib.request.urlopen(SERVER_ADDRESS + "health").read()
+    print(contents)
 
 def down_down(event):
     print('down down', event)

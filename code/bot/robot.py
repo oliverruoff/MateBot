@@ -19,6 +19,30 @@ class Robot:
         self.ROBOT_CIRCUMFERENCE_CM = math.pi * 50        # manually determined
         self.TURNING_ERROR_MULTIPLIER = 1.36              # manually determined
 
+    def set_direction_left(self):
+        self.front_left_stepper.set_direction_clockwise(True)
+        self.front_right_stepper.set_direction_clockwise(True)
+        self.back_left_stepper.set_direction_clockwise(True)
+        self.back_right_stepper.set_direction_clockwise(True)
+
+    def set_direction_right(self):
+        self.front_left_stepper.set_direction_clockwise(False)
+        self.front_right_stepper.set_direction_clockwise(False)
+        self.back_left_stepper.set_direction_clockwise(False)
+        self.back_right_stepper.set_direction_clockwise(False)
+
+    def set_direction_forward(self):
+        self.front_left_stepper.set_direction_clockwise(False)
+        self.front_right_stepper.set_direction_clockwise(True)
+        self.back_left_stepper.set_direction_clockwise(False)
+        self.back_right_stepper.set_direction_clockwise(True)
+
+    def set_direction_backward(self):
+        self.front_left_stepper.set_direction_clockwise(True)
+        self.front_right_stepper.set_direction_clockwise(False)
+        self.back_left_stepper.set_direction_clockwise(True)
+        self.back_right_stepper.set_direction_clockwise(False)
+
     def turn_all_steppers_angle(self, degree, asynch, ramping):
         if asynch:
             self.front_left_stepper.turn_angle(
@@ -84,6 +108,12 @@ class Robot:
         self.front_right_stepper.stop_continuous()
         self.back_left_stepper.stop_continuous()
         self.back_right_stepper.stop_continuous()
+
+    def deactivate_all_drive_steppers(self):
+        self.front_left_stepper.deactivate_stepper()
+        self.front_right_stepper.deactivate_stepper()
+        self.back_left_stepper.deactivate_stepper()
+        self.back_right_stepper.deactivate_stepper()
 
     def turn_degree_gyro_supported(self, degree, clockwise):
         if clockwise:
