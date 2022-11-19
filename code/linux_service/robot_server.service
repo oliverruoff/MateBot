@@ -6,7 +6,7 @@ After=multi-user.target
 Type=simple
 User=pi
 ExecStartPre=/bin/sleep 30
-ExecStart=/usr/bin/authbind --deep /usr/bin/python3 /home/pi/develop/MateBot/code/bot/robot_server.py
+ExecStart=/usr/bin/python3 /home/pi/develop/MateBot/code/bot/robot_server.py
 Restart=on-abort
 
 [Install]
