@@ -37,6 +37,26 @@ def init_robot():
 
     return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, lidar_stepper, mpu)
 
+def get_frequency_for_percent(percent):
+    if percent < 11:
+            left = 320
+    elif percent > 11 and percent < 22:
+        left = 400
+    elif percent > 22 and percent < 33:
+        left = 500
+    elif percent > 33 and percent < 44:
+        left = 800
+    elif percent > 44 and percent < 55:
+        left = 1000
+    elif percent > 55 and percent < 66:
+        left = 1600
+    elif percent > 66 and percent < 77:
+        left = 2000
+    elif percent > 77 and percent < 88:
+        left = 4000
+    elif percent > 88 :
+        left = 8000
+
 @app.route("/joystick")
 def joystick():
     x = int(request.args.get('x'))
@@ -58,20 +78,16 @@ def joystick():
         bot.deactivate_all_drive_steppers()
 
     if x > 0:
-        left = abs_y
-        right = int(abs_y - (abs_x*(abs_y/100)))
+        left = get_frequency_for_percent(abs_y)
+        right = get_frequency_for_percent(int(abs_y - (abs_x*(abs_y/100))))
     elif x < 0:
-        right = abs_y
-        left = int(abs_y - (abs_x*(abs_y/100)))
+        right = get_frequency_for_percent(abs_y)
+        left = get_frequency_for_percent(int(abs_y - (abs_x*(abs_y/100))))
     else:
         return "Error: x value seems to be strange: " + x
     print('left:', left, 'right:', right)
-    right_freq = int(8000 * (right / 100))
-    left_freq = int(8000 * (left / 100))
-    print('Left freq:', left_freq)
-    print('Right freq:', right_freq)
-    bot.front_left_stepper.run_continuously(frequency=right_freq)
-    bot.front_left_stepper.run_continuously(frequency=left_freq)
+    bot.front_left_stepper.run_continuously(frequency=right)
+    bot.front_left_stepper.run_continuously(frequency=left)
     return 'Done'
 
 
