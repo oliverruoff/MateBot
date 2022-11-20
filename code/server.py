@@ -96,7 +96,11 @@ def joystick():
 @app.route("/move")
 def move():
     global bot
-    forward = bool(request.args.get('forward'))
+    forward = request.args.get('forward')
+    if forward == 'True':
+        forward = True
+    else:
+        forward = False
     if forward:
         print('forward selected')
         bot.set_direction_forward()
