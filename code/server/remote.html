@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>PiBot Remote</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-image: linear-gradient(rgba(0, 9, 25,1), rgba(9, 0, 43,1));
+      }
+      #joystick {
+        border: 1px solid #9C9898;
+      }
+     /* #img_id {
+        position:absolute;
+        top:50%;
+        left:50%;
+        margin-top:-25px;
+        margin-left:-25px;
+      }*/
+
+    </style>
+	<script src="{{ url_for('joystickscript') }}"></script>
+  </head>
+  <body>
+    <div id="imgDiv" style="width:640px;height:500px;margin:10px auto;">
+      <img id="img_id" src="{{ url_for('video_feed') }}" style="position:relative;">
+    </div>
+    <div id="joyDiv" style="width:400px;height:400px;margin-bottom:5px;margin:10px auto;"></div>
+
+
+    <script type="text/javascript">
+
+keyControl = false;
+keysPressed = [];
+
+function reactToKeysPressed() {
+  console.log('KeysPressed: ', keysPressed)
+  console.log('Length: ', keysPressed.length)
+  if (keysPressed.length == 1) {
+    if ((keysPressed.indexOf('KeyW') >= 0 || keysPressed.indexOf('ArrowUp') >= 0)) {
+      httpGet("{{ url_for('joystick') }}?x=0&y=100")
+    } else if ((keysPressed.indexOf('KeyS') >= 0 || keysPressed.indexOf('ArrowDown')) >= 0) {
+      httpGet("{{ url_for('joystick') }}?x=0&y=-100")
+    } else if ((keysPressed.indexOf('KeyA') >= 0 || keysPressed.indexOf('ArrowLeft')) >= 0) {
+      httpGet("{{ url_for('joystick') }}?x=-100&y=0")
+    } else if ((keysPressed.indexOf('KeyD') >= 0 || keysPressed.indexOf('ArrowRight')) >= 0) {
+      httpGet("{{ url_for('joystick') }}?x=100&y=0")
+    }
+  } else if (keysPressed.length == 2) {
+    if ((keysPressed.indexOf('ArrowUp') >= 0 && keysPressed.indexOf('ArrowRight') >= 0) || 
+    keysPressed.indexOf('KeyW') >= 0 && keysPressed.indexOf('KeyD') >= 0) {
+      httpGet("{{ url_for('joystick') }}?x=60&y=100")
+    } else if ((keysPressed.indexOf('ArrowUp') >= 0 && keysPressed.indexOf('ArrowLeft') >= 0) || 
+        keysPressed.indexOf('KeyW') >= 0 && keysPressed.indexOf('KeyA') >= 0) {
+          httpGet("{{ url_for('joystick') }}?x=-60&y=100")
+    } else if ((keysPressed.indexOf('ArrowDown') >= 0 && keysPressed.indexOf('ArrowLeft') >= 0) || 
+        keysPressed.indexOf('KeyS') >= 0 && keysPressed.indexOf('KeyA') >= 0) {
+          httpGet("{{ url_for('joystick') }}?x=-60&y=-100")
+    } else if ((keysPressed.indexOf('ArrowDown') >= 0 && keysPressed.indexOf('ArrowRight') >= 0) || 
+        keysPressed.indexOf('KeyS') >= 0 && keysPressed.indexOf('KeyD') >= 0) {
+          httpGet("{{ url_for('joystick') }}?x=60&y=-100")
+    }
+  } else if (keysPressed.length == 0) {
+    httpGet("{{ url_for('joystick') }}?x=0&y=0")
+  } else {
+    console.log('Too many buttons pressed!');
+  }
+}
+
+document.addEventListener('keydown', function(event) {
+  console.log('Key down:', event.code)
+  if (keysPressed.indexOf(event.code) < 0) {
+    keysPressed.push(event.code)
+  }
+  reactToKeysPressed();
+});
+
+document.addEventListener('keyup', function(event) {
+  console.log('Key up:', event.code)
+  indexToDelete = keysPressed.indexOf(event.code);
+  if (indexToDelete >= 0) {
+    keysPressed.splice(indexToDelete, 1)
+  }
+  reactToKeysPressed();
+});
+// Create JoyStick object into the DIV 'joyDiv'
+var joy = new JoyStick('joyDiv');
+
+var oldUrl = ""
+
+// document.getElementById('img_id').src=`{{ url_for('video_feed') }}?${n}`;
+
+function httpIntervalGet(theUrl) {
+  if (keysPressed.length > 0) {
+    console.log("Currently key control is activated, ignoring joystick!")
+    return "Key control activated, ignoring joystick!"
+  } else {
+    httpGet(theUrl)
+  }
+}
+
+function httpGet(theUrl)
+{
+  if (oldUrl != theUrl) {
+      oldUrl = theUrl
+      console.log(theUrl)
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+      xmlHttp.send( null );
+      return xmlHttp.responseText;
+  }
+}
+
+// Sending parameters to robot server
+// setInterval(function(){ httpGet(`http://<<IP>>:5000/joystick?x=${x.value}&y=${y.value}`); }, 100);
+setInterval(function(){ httpIntervalGet(`{{ url_for('joystick') }}?x=${joy.GetX()}&y=${joy.GetY()}`); }, 100);
+    </script>
+  </body>
+</html>
