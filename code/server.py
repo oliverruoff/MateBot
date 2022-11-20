@@ -98,8 +98,10 @@ def move():
     global bot
     forward = bool(request.args.get('forward'))
     if forward:
+        print('forward selected')
         bot.set_direction_forward()
     else:
+        print('backward selected')
         bot.set_direction_backward()
     bot.run_continuously_all_steppers()
     return "Moving"
