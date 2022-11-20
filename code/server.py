@@ -93,6 +93,35 @@ def joystick():
     bot.front_left_stepper.run_continuously(frequency=left)
     return 'Done'
 
+@app.route("/move")
+def move():
+    global bot
+    forward = bool(request.args.get('forward'))
+    if forward:
+        bot.set_direction_forward()
+    else:
+        bot.set_direction_backward()
+    bot.run_continuously_all_steppers()
+    return "Moving"
+
+@app.route("/stop")
+def stop():
+    global bot
+    bot.stop_continously_all_steppers()
+    return "Stopped"
+
+@app.route("/turn")
+def turn():
+    direction = request.args.get('direction')
+    global bot
+    if direction == "left":
+        bot.set_direction_left()
+    elif direction == "right":
+        bot.set_direction_right()
+    else:
+        return "Direction " + direction + " not supported. Choose either left or right."
+    bot.run_continuously_all_steppers()
+    return "Turning"
 
 @app.route("/joystickscript")
 def joystickscript():

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>PiBot Remote</title>
+    <title>MateBot Remote</title>
     <style>
       body {
         margin: 0px;
@@ -45,7 +45,7 @@ function reactToKeysPressed() {
     } else if ((keysPressed.indexOf('KeyA') >= 0 || keysPressed.indexOf('ArrowLeft')) >= 0) {
       httpGet("{{ url_for('joystick') }}?x=-100&y=0")
     } else if ((keysPressed.indexOf('KeyD') >= 0 || keysPressed.indexOf('ArrowRight')) >= 0) {
-      httpGet("{{ url_for('joystick') }}?x=100&y=0")
+      httpGet("{{ url_for('turn') }}?direction=right")
     }
   } else if (keysPressed.length == 2) {
     if ((keysPressed.indexOf('ArrowUp') >= 0 && keysPressed.indexOf('ArrowRight') >= 0) || 
@@ -62,7 +62,7 @@ function reactToKeysPressed() {
           httpGet("{{ url_for('joystick') }}?x=60&y=-100")
     }
   } else if (keysPressed.length == 0) {
-    httpGet("{{ url_for('joystick') }}?x=0&y=0")
+    httpGet("{{ url_for('stop') }}")
   } else {
     console.log('Too many buttons pressed!');
   }
