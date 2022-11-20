@@ -39,24 +39,26 @@ def init_robot():
 
 def get_frequency_for_percent(percent):
     print('Checking for percent:', percent)
+    val = 0
     if percent < 11:
-            left = 320
+            val = 320
     elif percent > 11 and percent < 22:
-        left = 400
+        val = 400
     elif percent > 22 and percent < 33:
-        left = 500
+        val = 500
     elif percent > 33 and percent < 44:
-        left = 800
+        val = 800
     elif percent > 44 and percent < 55:
-        left = 1000
+        val = 1000
     elif percent > 55 and percent < 66:
-        left = 1600
+        val = 1600
     elif percent > 66 and percent < 77:
-        left = 2000
+        val = 2000
     elif percent > 77 and percent < 88:
-        left = 4000
+        val = 4000
     elif percent > 88 :
-        left = 8000
+        val = 8000
+    return val
 
 @app.route("/joystick")
 def joystick():
