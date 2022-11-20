@@ -67,8 +67,10 @@ def joystick():
         return 'Stopped motors.'
 
     if y > 0:
+        pass
         #pt.move_front()
     elif y < 0:
+        pass
         #pt.move_back()
     else:
         pass
