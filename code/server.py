@@ -3,112 +3,74 @@ import os
 
 import cv2
 
+from actuators import stepper
+from sensors import mpu6050
+from bot import robot
+import RPi.GPIO as GPIO
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 html_template_dir = os.path.join(dir_path, 'server')
 
 app = Flask(__name__, template_folder=html_template_dir)
 vc = cv2.VideoCapture(0)
 
+def init_robot():
+    ####################################
+    # Initializing sensors, motors, etc.
+    ####################################
+    front_left_stepper = stepper.stepper(
+        DIR=11, STEP=9, SLP=26, steps_per_revolution=200, stepper_delay_seconds=0.00001, activate_on_high=False, gpio_mode=GPIO.BCM)
 
-@app.route("/turn")
-def turn():
-    direction = request.args.get('direction')
-    degree = int(request.args.get('degree', default=90))
-    if direction == 'left':
-        #sgm.gyro_turn(degree, right=False, motor_speed=90)
-        return 'Turned %i degree to the %s.' % (degree, direction)
-    elif direction == 'right':
-        #sgm.gyro_turn(degree, right=True, motor_speed=90)
-        return 'Turned %i degree to the %s.' % (degree, direction)
-    else:
-        return 'Direction not supported!'
+    front_right_stepper = stepper.stepper(
+        DIR=10, STEP=22, SLP=26, steps_per_revolution=200, stepper_delay_seconds=0.00001, activate_on_high=False, gpio_mode=GPIO.BCM)
 
+    back_left_stepper = stepper.stepper(
+        DIR=19, STEP=13, SLP=26, steps_per_revolution=200, stepper_delay_seconds=0.00001, activate_on_high=False, gpio_mode=GPIO.BCM)
 
-@app.route("/move")
-def move():
-    direction = request.args.get('direction')
-    duration = float(request.args.get('duration', default=1))
-    motorspeed = int(request.args.get('motorspeed', default=90))
-    _dir = True
-    if direction == 'forward':
-        _dir = True
-    elif direction == 'backward':
-        _dir = False
-    else:
-        return 'Direction not supported!'
-    #sgm.gyro_move_start(_dir, motor_speed=motorspeed)
-    #time.sleep(duration)
-    #sgm.gyro_move_stop()
-    return 'Moved %f seconds with motorspeed: %i to direction: %s' \
-        % (duration, motorspeed, direction)
+    back_right_stepper = stepper.stepper(
+        DIR=6, STEP=5, SLP=26, steps_per_revolution=200, stepper_delay_seconds=0.00001, activate_on_high=False, gpio_mode=GPIO.BCM)
 
+    lidar_stepper = stepper.stepper(
+        DIR=16, STEP=20, SLP=21, steps_per_revolution=200, stepper_delay_seconds=0.005, activate_on_high=True, gpio_mode=GPIO.BCM)
+
+    mpu = mpu6050.mpu6050()
+
+    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, lidar_stepper, mpu)
 
 @app.route("/joystick")
 def joystick():
     x = int(request.args.get('x'))
     y = int(request.args.get('y'))
 
-    if x > 100:
-        x = 100
-    elif x < -100:
-        x = -100
-
-    if y > 100:
-        y = 100
-    elif y < -100:
-        y = -100
-
     print('x:', x)
     print('y:', y)
     abs_y = abs(y)
     abs_x = abs(x)
     if x == 0 and y == 0:
-        #pt.break_motors()
+        bot.deactivate_all_drive_steppers()
         return 'Stopped motors.'
 
     if y > 0:
-        pass
-        #pt.move_front()
+        bot.set_direction_forward()
     elif y < 0:
-        pass
-        #pt.move_back()
+        bot.set_direction_backward()
     else:
-        pass
-        # pt.stop_motors()
-
-    # Extra logic for better rotating movement
-    if y < 15 and y > -15:
-        if x > 0:
-            pass
-            #pt.turn_left_wheel(True)
-            #pt.turn_right_wheel(False)
-        if x < 0:
-            pass
-            #pt.turn_left_wheel(False)
-            #pt.turn_right_wheel(True)
-        pass
-        #pt.change_speed_left(abs(x))
-        #pt.change_speed_right(abs(x))
-        return'Done.'
+        bot.deactivate_all_drive_steppers()
 
     if x > 0:
         left = abs_y
         right = int(abs_y - (abs_x*(abs_y/100)))
-        print('Left:', left)
-        print('Right:', right)
-        #pt.change_speed_left(left)
-        #pt.change_speed_right(right)
     elif x < 0:
         right = abs_y
         left = int(abs_y - (abs_x*(abs_y/100)))
-        print('Left:', left)
-        print('Right:', right)
-        #pt.change_speed_right(right)
-        #pt.change_speed_left(left)
     else:
-        pass
-        #pt.change_speed_right(abs_y)
-        #pt.change_speed_left(abs_y)
+        return "Error: x value seems to be strange: " + x
+    right_freq = 8000 * (right / 100)
+    left_freq = 8000 * (left / 100)
+    print('Left freq:', left_freq)
+    print('Right freq:', right_freq)
+    bot.front_left_stepper.run_continuously(frequency=right_freq)
+    bot.front_left_stepper.run_continuously(frequency=left_freq)
     return 'Done'
 
 
@@ -141,6 +103,9 @@ def video_feed():
 
 if __name__ == "__main__":
     
+    bot = init_robot()
+    bot.deactivate_all_drive_steppers() # so that there is clearly no holding torque on the steppers
+
     # remote_html = prepare_remote()
     js_path = os.path.join(dir_path, 'server', 'joystick.js')
     with open(js_path, 'r') as file:
