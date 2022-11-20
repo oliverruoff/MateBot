@@ -65,8 +65,8 @@ def joystick():
         left = int(abs_y - (abs_x*(abs_y/100)))
     else:
         return "Error: x value seems to be strange: " + x
-    right_freq = 8000 * (right / 100)
-    left_freq = 8000 * (left / 100)
+    right_freq = int(8000 * (right / 100))
+    left_freq = int(8000 * (left / 100))
     print('Left freq:', left_freq)
     print('Right freq:', right_freq)
     bot.front_left_stepper.run_continuously(frequency=right_freq)
