@@ -38,6 +38,7 @@ def init_robot():
     return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, lidar_stepper, mpu)
 
 def get_frequency_for_percent(percent):
+    print('Checking for percent:', percent)
     if percent < 11:
             left = 320
     elif percent > 11 and percent < 22:
