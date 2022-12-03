@@ -1,6 +1,7 @@
 from actuators import stepper
 from sensors import mpu6050
 from bot import robot
+from sensors import tfluna
 
 
 import time
@@ -26,8 +27,8 @@ def init_robot():
         DIR=16, STEP=20, SLP=21, steps_per_revolution=200, stepper_delay_seconds=0.005, activate_on_high=True, gpio_mode=GPIO.BCM)
 
     mpu = mpu6050.mpu6050()
-    tfluna = tfluna.TFLuna()
-    lidar = lidar.lidar(lidar_stepper, tfluna)
+    tflu = tfluna.TFLuna()
+    lidar = lidar.lidar(lidar_stepper, tflu)
 
     return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, lidar)
 
