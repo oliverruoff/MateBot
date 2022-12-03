@@ -6,6 +6,8 @@ import cv2
 from actuators import stepper
 from sensors import mpu6050
 from bot import robot
+from lidar import lidar
+from sensors import tfluna
 import RPi.GPIO as GPIO
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -34,8 +36,10 @@ def init_robot():
         DIR=16, STEP=20, SLP=21, steps_per_revolution=200, stepper_delay_seconds=0.005, activate_on_high=True, gpio_mode=GPIO.BCM)
 
     mpu = mpu6050.mpu6050()
+    tfluna = tfluna.TFLuna()
+    lidar = lidar.lidar(lidar_stepper, tfluna)
 
-    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, lidar_stepper, mpu)
+    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, lidar)
 
 def get_frequency_for_percent(percent):
     print('Checking for percent:', percent)

@@ -6,8 +6,7 @@ from bot import robot
 import time
 import RPi.GPIO as GPIO
 
-try:
-
+def init_robot():
     ####################################
     # Initializing sensors, motors, etc.
     ####################################
@@ -27,87 +26,22 @@ try:
         DIR=16, STEP=20, SLP=21, steps_per_revolution=200, stepper_delay_seconds=0.005, activate_on_high=True, gpio_mode=GPIO.BCM)
 
     mpu = mpu6050.mpu6050()
+    tfluna = tfluna.TFLuna()
+    lidar = lidar.lidar(lidar_stepper, tfluna)
 
-    robo = robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, lidar_stepper, mpu)
+    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, lidar)
 
-    # Setting stepper modes (e.g. to particular micro stepping mode)
-    back_left_stepper.set_stepper_mode('1/32')
-    back_right_stepper.set_stepper_mode('1/32')
-    front_left_stepper.set_stepper_mode('1/32')
-    front_right_stepper.set_stepper_mode('1/32')
-    lidar_stepper.set_stepper_mode('Full')
+try:
+    robot = init_robot()
 
-    #lidar_stepper.turn_angle(90, False)
-    #lidar_stepper.set_direction_clockwise(False)
-    #lidar_stepper.turn_angle(180, False)
-    #lidar_stepper.set_direction_clockwise(True)
-    #lidar_stepper.turn_angle(90, False)
-
-    '''
-    front_left_stepper.set_direction_clockwise(False)
-    back_left_stepper.set_direction_clockwise(False)
-
-    back_left_stepper.turn_angle(720, True)
-    back_right_stepper.turn_angle(720, True)
-    front_left_stepper.turn_angle(720, True)
-    front_right_stepper.turn_angle(720, False)
-
-    front_left_stepper.set_direction_clockwise(True)
-    back_left_stepper.set_direction_clockwise(True)
-    front_right_stepper.set_direction_clockwise(False)
-    back_right_stepper.set_direction_clockwise(False)
-
-    back_left_stepper.turn_angle(720, True)
-    back_right_stepper.turn_angle(720, True)
-    front_left_stepper.turn_angle(720, True)
-    front_right_stepper.turn_angle(720, False)
-
-    front_right_stepper.set_direction_clockwise(True)
-    back_right_stepper.set_direction_clockwise(True)
-
-    back_left_stepper.turn_angle(720, True)
-    back_right_stepper.turn_angle(720, True)
-    front_left_stepper.turn_angle(720, True)
-    front_right_stepper.turn_angle(720, False)
-
-    front_left_stepper.set_direction_clockwise(False)
-    back_left_stepper.set_direction_clockwise(False)
-    front_right_stepper.set_direction_clockwise(False)
-    back_right_stepper.set_direction_clockwise(False)
-
-    back_left_stepper.turn_angle(720, True)
-    back_right_stepper.turn_angle(720, True)
-    front_left_stepper.turn_angle(720, True)
-    front_right_stepper.turn_angle(720, False)'''
-
-    #robo.drive_cm(50, True)
-    robo.turn_degree_gyro_supported(360, True)
-    #robo.drive_cm(50, True)
-    #robo.turn_degree_gyro_supported(90, True)
-    #robo.drive_cm(50, True)
-    #robo.turn_degree_gyro_supported(90, True)
-    #robo.drive_cm(50, True)
-    #robo.turn_degree_gyro_supported(90, True)
-
-    front_right_stepper.activate_stepper()
-    front_left_stepper.activate_stepper()
-    back_right_stepper.activate_stepper()
-    back_left_stepper.activate_stepper()
-
-    time.sleep(1)
-
-    front_right_stepper.deactivate_stepper()
-    front_left_stepper.deactivate_stepper()
-    back_right_stepper.deactivate_stepper()
-    back_left_stepper.deactivate_stepper()
-    lidar_stepper.deactivate_stepper()
+    robot.lidar.scan_angle_with_stepper_position_reset(360)
 
 except KeyboardInterrupt:
 
     # removing holding torque
-    front_right_stepper.deactivate_stepper()
-    front_left_stepper.deactivate_stepper()
-    back_right_stepper.deactivate_stepper()
-    back_left_stepper.deactivate_stepper()
-    lidar_stepper.deactivate_stepper()
+    robot.front_right_stepper.deactivate_stepper()
+    robot.front_left_stepper.deactivate_stepper()
+    robot.back_right_stepper.deactivate_stepper()
+    robot.back_left_stepper.deactivate_stepper()
+    robot.lidar_stepper.deactivate_stepper()
 
