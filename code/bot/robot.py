@@ -110,10 +110,10 @@ class Robot:
         self.back_right_stepper.stop_continuous()
 
     def deactivate_all_drive_steppers(self):
-        self.front_left_stepper.deactivate_stepper()
-        self.front_right_stepper.deactivate_stepper()
-        self.back_left_stepper.deactivate_stepper()
-        self.back_right_stepper.deactivate_stepper()
+        self.front_left_stepper.deactivate()
+        self.front_right_stepper.deactivate()
+        self.back_left_stepper.deactivate()
+        self.back_right_stepper.deactivate()
 
     def turn_degree_gyro_supported(self, degree, clockwise):
         if clockwise:
