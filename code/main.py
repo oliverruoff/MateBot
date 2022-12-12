@@ -1,7 +1,7 @@
 from actuators import stepper
 from sensors import mpu6050
 from bot import robot
-from sensors import tfluna
+from sensors import tfluna, camera
 
 
 import time
@@ -33,9 +33,12 @@ def init_robot():
     return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, lidar)
 
 try:
-    robot = init_robot()
+    #robot = init_robot()
 
-    robot.lidar.scan_angle_with_stepper_position_reset(360)
+    #robot.lidar.scan_angle_with_stepper_position_reset(360)
+
+    cam = camera.camera()
+    cam.look_for_object('person')
 
 except KeyboardInterrupt:
 
