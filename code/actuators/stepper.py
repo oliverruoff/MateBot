@@ -20,20 +20,20 @@ class stepper:
         common bigger stepper motors.
         """
 
-    def __init__(self, DIR, STEP, SLP, steps_per_revolution, M0=None, M1=None, M2=None, RST=None, stepper_mode='Full', stepper_delay_seconds=.005, activate_on_high=True, gpio_mode=GPIO.BCM):
+    def __init__(self, DIR, STEP, SLP, steps_per_revolution, M0=None, M1=None, M2=None, RST=None, step_mode='Full', step_delay_seconds=.005, activate_on_high=True, gpio_mode=GPIO.BCM):
         self.DIR = DIR
         self.STEP = STEP
         self.RST = RST
         self.M0 = M0
         self.M1 = M1
         self.M2 = M2
-        self.stepper_mode = stepper_mode
+        self.step_mode = step_mode
         # If set to Low, there is no holding torque on the motor
         self.SLP = SLP
         # Steps per Revolution (360 / 1.8) (1,8° per step (oruoff))
         self.steps_per_revolution = steps_per_revolution
 
-        self.stepper_delay_seconds = stepper_delay_seconds
+        self.step_delay_seconds = step_delay_seconds
         self.activate_on_high = activate_on_high
         self.gpio_mode = gpio_mode
 
@@ -62,15 +62,15 @@ class stepper:
 
         GPIO.output(DIR, CW)
 
-    def set_stepper_delay(self, stepper_delay_seconds):
+    def set_step_delay(self, step_delay_seconds):
         """Sets the delay in seconds for the driver to wait between steps.
 
         Args:
             stepper_delay_seconds (float): Delay in seconds to wait between steps.
         """
-        self.stepper_delay_seconds = stepper_delay_seconds
+        self.step_delay_seconds = step_delay_seconds
 
-    def activate_stepper(self):
+    def activate(self):
         """Activates the stepper, which also will put holding torque on the stepper.
         This is required in order to move the stepper.
         """
@@ -79,7 +79,7 @@ class stepper:
         else:
             GPIO.output(self.SLP, GPIO.LOW)
 
-    def deactivate_stepper(self):
+    def deactivate(self):
         """Deactivates the stepper and also releases holding torque on the stepper.
         In a deactivated state, the stepper will not be able to move.
         """
@@ -88,14 +88,14 @@ class stepper:
         else:
             GPIO.output(self.SLP, GPIO.HIGH)
 
-    def set_stepper_mode(self, mode):
+    def set_step_mode(self, mode):
         """Sets the stepper mode to one of 'Full', 'Half', '1/4', '1/8', '1/16', '1/32'.
         Next usage of the stepper will take this stepper mode.
 
         Args:
             mode (str): Stepper mode. One of ['Full', 'Half', '1/4', '1/8', '1/16', '1/32']
         """
-        self.stepper_mode = mode
+        self.step_mode = mode
         if None in [self.M0, self.M1, self.M2]:
             print('M0, M1, or M2 not defined! ->', [self.M0, self.M1, self.M2], '. Mode set though.')
         else:
@@ -112,7 +112,7 @@ class stepper:
             frequency (int, optional): Describes the frequency of the stepper's high / low states. Defaults to 320.
             Can be: 320 / 400 / 500 / 800 / 1000 / 1600 / 2000 / 4000 / 8000
         """
-        self.activate_stepper()
+        self.activate()
         self.pi.set_PWM_dutycycle(self.STEP, dutycycle)
         self.pi.set_PWM_frequency(self.STEP, frequency)
 
@@ -120,7 +120,7 @@ class stepper:
         """Stops the continuous turning of the stepper. Also deactivates it, thus
         releasing holding torque.
         """
-        self.deactivate_stepper()
+        self.deactivate()
         self.pi.set_PWM_dutycycle(self.STEP, 0)
 
     def set_direction_clockwise(self, clockwise=True):
@@ -212,7 +212,7 @@ class stepper:
             degree (int): The angle in degree, on how much the stepper will rotate.
             ramping (bool): Defines wheather the stepper should ramp up and down its movement.
         """
-        self.activate_stepper()
+        self.activate()
         stepper_mode_multiplier = self._get_stepper_multiplier_from_mode()
 
         steps = int(self.steps_per_revolution/360*degree) * stepper_mode_multiplier
