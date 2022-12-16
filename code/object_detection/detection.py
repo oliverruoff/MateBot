@@ -27,32 +27,33 @@ def classify_image(interpreter, image, top_k=1):
   ordered = np.argpartition(-output, 1)
   return [(i, output[i]) for i in ordered[:top_k]][0]
 
-data_folder = "object_detection/"
+def detect_object():
+  data_folder = "object_detection/"
 
-model_path = data_folder + "mobilenet_v1_1.0_224_quant.tflite"
-label_path = data_folder + "labels_mobilenet_quant_v1_224.txt"
+  model_path = data_folder + "mobilenet_v1_1.0_224_quant.tflite"
+  label_path = data_folder + "labels_mobilenet_quant_v1_224.txt"
 
-interpreter = Interpreter(model_path)
-print("Model Loaded Successfully.")
+  interpreter = Interpreter(model_path)
+  print("Model Loaded Successfully.")
 
-interpreter.allocate_tensors()
-_, height, width, _ = interpreter.get_input_details()[0]['shape']
-print("Image Shape (", width, ",", height, ")")
+  interpreter.allocate_tensors()
+  _, height, width, _ = interpreter.get_input_details()[0]['shape']
+  print("Image Shape (", width, ",", height, ")")
 
-# Load an image to be classified.
-cam = camera.camera()
-image = cam.get_picture().convert('RGB').resize((width, height))
+  # Load an image to be classified.
+  cam = camera.camera()
+  image = cam.get_picture().convert('RGB').resize((width, height))
 
-# Classify the image.
-time1 = time.time()
-label_id, prob = classify_image(interpreter, image)
-time2 = time.time()
-classification_time = np.round(time2-time1, 3)
-print("Classificaiton Time =", classification_time, "seconds.")
+  # Classify the image.
+  time1 = time.time()
+  label_id, prob = classify_image(interpreter, image)
+  time2 = time.time()
+  classification_time = np.round(time2-time1, 3)
+  print("Classificaiton Time =", classification_time, "seconds.")
 
-# Read class labels.
-labels = load_labels(label_path)
+  # Read class labels.
+  labels = load_labels(label_path)
 
-# Return the classification label of the image.
-classification_label = labels[label_id]
-print("Image Label is :", classification_label, ", with Accuracy :", np.round(prob*100, 2), "%.")
+  # Return the classification label of the image.
+  classification_label = labels[label_id]
+  print("Image Label is :", classification_label, ", with Accuracy :", np.round(prob*100, 2), "%.")
