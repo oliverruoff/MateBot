@@ -10,7 +10,7 @@ class Detector:
   def __init__(self, model_path, label_path):
     self.interpreter = self.init_interpreter(model_path)
     print("Model Loaded Successfully.")
-    self.init_interpreterinterpreter.allocate_tensors()
+    self.init_interpreter.allocate_tensors()
     _, self.height, self.width, _ = self.interpreter.get_input_details()[0]['shape']
     print("Image Shape (", self.width, ",", self.height, ")")
     # Read class labels.
@@ -53,7 +53,7 @@ class Detector:
     time2 = time.time()
     classification_time = np.round(time2-time1, 3)
     print("Classificaiton Time =", classification_time, "seconds.")
-    
+
     # Return the classification label of the image.
     classification_label = self.labels[label_id]
     print("Image Label is :", classification_label, ", with Accuracy :", np.round(prob*100, 2), "%.")
