@@ -2,7 +2,7 @@ from actuators import stepper
 from sensors import mpu6050
 from bot import robot
 from sensors import tfluna
-from object_detection import detect_object
+import object_detection as od
 
 
 import time
@@ -38,7 +38,7 @@ try:
 
     #robot.lidar.scan_angle_with_stepper_position_reset(360)
 
-    detect_object()
+    od.detect_object()
 
 except KeyboardInterrupt:
 
