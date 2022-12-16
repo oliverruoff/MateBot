@@ -7,6 +7,13 @@ A bigger robot that is built around some small IKEA furniture.
 - gpio_mode=GPIO.BCM
 - All pin declarations are like "GPIO123"
 
+## Setup TFLite for object recognition with camera
+
+- pip install "picamera[array]"
+- pip install tflite-runtime
+- sudo apt-get install libatlas-base-dev
+- pip install tflite_support
+
 ### Drive Steppers
 
 > Those stepper drivers activate by setting ENA pin to LOW

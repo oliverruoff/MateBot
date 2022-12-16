@@ -2,4 +2,6 @@ opencv-python
 numpy
 matplotlib
 cvlib
-tensorflow
+"picamera[array]"
+tflite-runtime
+tflite_support
