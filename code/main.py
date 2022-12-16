@@ -2,7 +2,7 @@ from actuators import stepper
 from sensors import mpu6050
 from bot import robot
 from sensors import tfluna
-import object_detection as od
+from object_detection import object_detection as od
 
 
 import time
