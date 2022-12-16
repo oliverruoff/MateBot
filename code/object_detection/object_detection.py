@@ -43,7 +43,7 @@ def detect_object():
 
   # Load an image to be classified.
   cam = camera.camera()
-  image = cam.get_picture().convert('RGB').resize((width, height))
+  image = cam.get_picture().resize((width, height)) # removed: .convert('RGB')
 
   # Classify the image.
   time1 = time.time()
