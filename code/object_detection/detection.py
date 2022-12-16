@@ -10,7 +10,7 @@ class Detector:
   def __init__(self, model_path, label_path):
     self.interpreter = self.init_interpreter(model_path)
     print("Model Loaded Successfully.")
-    self.init_interpreter.allocate_tensors()
+    self.interpreter.allocate_tensors()
     _, self.height, self.width, _ = self.interpreter.get_input_details()[0]['shape']
     print("Image Shape (", self.width, ",", self.height, ")")
     # Read class labels.
