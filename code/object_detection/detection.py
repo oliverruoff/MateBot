@@ -33,18 +33,6 @@ class Detector:
     self.set_input_tensor(interpreter, image)
 
     interpreter.invoke()
-    output_details = interpreter.get_output_details()
-
-    detection_boxes = interpreter.get_tensor(output_details[0]['index'])
-    detection_classes = interpreter.get_tensor(output_details[1]['index'])
-    detection_scores = interpreter.get_tensor(output_details[2]['index'])
-    num_boxes = interpreter.get_tensor(output_details[3]['index'])
-    print(num_boxes)
-    for i in range(int(num_boxes[0])):
-      if detection_scores[0, i] > .5:
-          class_id = detection_classes[0, i]
-          print(class_id, self.labels[class_id])
-
     output_details = interpreter.get_output_details()[0]
     output = np.squeeze(interpreter.get_tensor(output_details['index']))
 
