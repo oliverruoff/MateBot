@@ -36,14 +36,19 @@ class Detector:
     return self.detector.detect(input_tensor)
 
   def get_detected_objects_image(self):
-    """Detecting objects returning result
+    """Detecting objects returning image with bounding boxes
 
     Returns:
-        DetectionResult: List of detected objects
+        cv2.Image: Image including bounding boxes
     """
 
+    image = self.cam.get_picture()
+
+    # Create a TensorImage object from the RGB image.
+    input_tensor = vision.TensorImage.create_from_array(image)
+
     # Run object detection estimation using the model.
-    detection_result = self.detect_objects()
+    detection_result = self.detector.detect(input_tensor)
 
     # Draw keypoints and edges on input image
     image = utils.visualize(image, detection_result)
