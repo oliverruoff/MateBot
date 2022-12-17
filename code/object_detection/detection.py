@@ -49,7 +49,7 @@ class Detector:
 
     # Run object detection estimation using the model.
     detection_result = self.detector.detect(input_tensor)
-
+    print(detection_result)
     # Draw keypoints and edges on input image
     image = utils.visualize(image, detection_result)
 
