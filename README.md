@@ -1,6 +1,11 @@
 # MateBot
 A bigger robot that is built around some small IKEA furniture.
 
+## Object Detection
+
+The robot runs on a raspberry pi 4, thus runs on tensorflow lite for object detection
+
+![object_detection](docs/imgs/object_detection.png)
 
 ## Wiring
 
