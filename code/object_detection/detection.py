@@ -1,17 +1,7 @@
-from tflite_runtime.interpreter import Interpreter 
-from PIL import Image
-import numpy as np
-import time
-
-import argparse
-import sys
-import time
-
-import cv2
 from tflite_support.task import core
 from tflite_support.task import processor
 from tflite_support.task import vision
-import utils
+from object_detection import utils
 
 from sensors import camera
 
