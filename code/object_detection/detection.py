@@ -3,57 +3,59 @@ from PIL import Image
 import numpy as np
 import time
 
+import argparse
+import sys
+import time
+
+import cv2
+from tflite_support.task import core
+from tflite_support.task import processor
+from tflite_support.task import vision
+import utils
+
 from sensors import camera
 
 class Detector:
 
-  def __init__(self, model_path, label_path):
-    self.interpreter = self.init_interpreter(model_path)
-    print("Model Loaded Successfully.")
-    self.interpreter.allocate_tensors()
-    _, self.height, self.width, _ = self.interpreter.get_input_details()[0]['shape']
-    print("Image Shape (", self.width, ",", self.height, ")")
-    # Read class labels.
-    self.labels = self.load_labels(label_path)
+  def __init__(self):
 
-  def init_interpreter(self, model_path):
-    return Interpreter(model_path)
-    
+    self.cam = camera.camera()
 
-  def load_labels(self, path): # Read the labels from the text file as a Python list.
-    with open(path, 'r') as f:
-      return [line.strip() for i, line in enumerate(f.readlines())]
+    # Initialize the object detection model
+    base_options = core.BaseOptions(
+        file_name='efficientdet_lite0.tflite', use_coral=False, num_threads=4)
+    detection_options = processor.DetectionOptions(
+        max_results=3, score_threshold=0.3)
+    options = vision.ObjectDetectorOptions(
+        base_options=base_options, detection_options=detection_options)
+    self.detector = vision.ObjectDetector.create_from_options(options)
 
-  def set_input_tensor(self, interpreter, image):
-    tensor_index = interpreter.get_input_details()[0]['index']
-    input_tensor = interpreter.tensor(tensor_index)()[0]
-    input_tensor[:, :] = image
 
-  def classify_image(self, interpreter, image, top_k=1):
-    self.set_input_tensor(interpreter, image)
+  def detect_objects(self):
+    """Detecting objects returning result
 
-    interpreter.invoke()
-    output_details = interpreter.get_output_details()[0]
-    output = np.squeeze(interpreter.get_tensor(output_details['index']))
+    Returns:
+        DetectionResult: List of detected objects
+    """
+    image = self.cam.get_picture()
 
-    scale, zero_point = output_details['quantization']
-    output = scale * (output - zero_point)
+    # Create a TensorImage object from the RGB image.
+    input_tensor = vision.TensorImage.create_from_array(image)
 
-    ordered = np.argpartition(-output, 1)
-    return [(i, output[i]) for i in ordered[:top_k]][0]
+    # Run object detection estimation using the model.
+    return self.detector.detect(input_tensor)
 
-  def detect_object(self):
-    # Load an image to be classified.
-    cam = camera.camera()
-    image = cam.get_picture().convert('RGB').resize((self.width, self.height))
+  def get_detected_objects_image(self):
+    """Detecting objects returning result
 
-    # Classify the image.
-    time1 = time.time()
-    label_id, prob = self.classify_image(self.interpreter, image)
-    time2 = time.time()
-    classification_time = np.round(time2-time1, 3)
-    print("Classificaiton Time =", classification_time, "seconds.")
+    Returns:
+        DetectionResult: List of detected objects
+    """
 
-    # Return the classification label of the image.
-    classification_label = self.labels[label_id]
-    print("Image Label is :", classification_label, ", with Accuracy :", np.round(prob*100, 2), "%.")
+    # Run object detection estimation using the model.
+    detection_result = self.detect_objects()
+
+    # Draw keypoints and edges on input image
+    image = utils.visualize(image, detection_result)
+
+    return image
