@@ -1,5 +1,4 @@
 import cv2
-from PIL import Image
 
 class camera:
 
@@ -16,5 +15,4 @@ class camera:
         s, image = cam.read()
         image = cv2.flip(image, flipCode=-1)
         image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
-        image = Image.fromarray(image)
         return image
