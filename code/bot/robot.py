@@ -1,6 +1,8 @@
 import math
 import time
 
+from object_detection import detection
+
 class Robot:
 
     def __init__(self, front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, lidar):
@@ -10,6 +12,7 @@ class Robot:
         self.back_right_stepper = back_right_stepper
         self.mpu = mpu
         self.lidar = lidar
+        self.od = detection.Detector()
 
         self.position_X = 0
         self.position_Y = 0
@@ -42,6 +45,13 @@ class Robot:
         self.front_right_stepper.set_direction_clockwise(False)
         self.back_left_stepper.set_direction_clockwise(True)
         self.back_right_stepper.set_direction_clockwise(False)
+
+    def follow_person(self):
+        result = self.od.detect_objects()
+        for detection in result.detections:
+            for category in detection:
+                break
+
 
     def turn_all_steppers_angle(self, degree, asynch, ramping):
         if asynch:
