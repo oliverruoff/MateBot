@@ -6,15 +6,17 @@ import cv2
 from actuators import stepper
 from sensors import mpu6050
 from bot import robot
-from lidar import lidar
-from sensors import tfluna
+from sensors import camera
 import RPi.GPIO as GPIO
+
+from object_detection import detection
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 html_template_dir = os.path.join(dir_path, 'server')
 
 app = Flask(__name__, template_folder=html_template_dir)
-vc = cv2.VideoCapture(0)
+
+od = detection.Detector()
 
 def init_robot():
     ####################################
@@ -146,8 +148,7 @@ def remote():
 def gen():
     """Video streaming generator function."""
     while True:
-        rval, frame = vc.read()
-        frame = cv2.flip(frame, flipCode=-1)
+        frame = od.get_detected_objects_image()
         ret, jpeg = cv2.imencode('.jpg', frame)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n')

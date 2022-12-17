@@ -15,7 +15,7 @@ class Detector:
     base_options = core.BaseOptions(
         file_name='object_detection/model/efficientdet_lite0.tflite', use_coral=False, num_threads=4)
     detection_options = processor.DetectionOptions(
-        max_results=3, score_threshold=0.3)
+        max_results=5, score_threshold=0.3)
     options = vision.ObjectDetectorOptions(
         base_options=base_options, detection_options=detection_options)
     self.detector = vision.ObjectDetector.create_from_options(options)
