@@ -55,7 +55,7 @@ class Robot:
         while True:
             print('Looking for:', object_to_follow)
             result = self.od.detect_objects()
-            print('Found:', [category.category_name for category in [detection.categories for detection in result.detections]])
+            print('Found:', [category.category_name for category in {detection.categories for detection in result.detections}])
             for detection in result.detections:
                 for category in detection.categories:
                     if category.category_name == object_to_follow:
