@@ -66,15 +66,12 @@ class Robot:
                         object_center = bounding_box_origin_x + bounding_box_width/2
                         if object_center < self.camera_width/2 - move_threshold:
                             print(object_to_follow, 'is to my left.')
-                            self.set_direction_left()
-                            self.run_continuously_all_steppers()
+                            self.turn_degree_gyro_supported(10, False)
                             pass
                         elif object_center > self.camera_width/2 + move_threshold:
                             print(object_to_follow, 'is to my right.')
-                            self.set_direction_right()
-                            self.run_continuously_all_steppers()
+                            self.turn_degree_gyro_supported(10, True)
                         else:
-                            self.stop_continously_all_steppers()
                             print(object_to_follow, 'seems to be right in front of me.')
 
 
