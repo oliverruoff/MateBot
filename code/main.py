@@ -28,10 +28,10 @@ def init_robot():
         DIR=16, STEP=20, SLP=21, steps_per_revolution=200, step_delay_seconds=0.005, activate_on_high=True, gpio_mode=GPIO.BCM)
 
     mpu = mpu6050.mpu6050()
-    tflu = tfluna.TFLuna()
-    lidar = lidar.lidar(lidar_stepper, tflu)
+    #tflu = tfluna.TFLuna()
+    #lidar = lidar.lidar(lidar_stepper, tflu)
 
-    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, lidar)
+    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None)
 
 try:
     robot = init_robot()
