@@ -149,8 +149,9 @@ def remote():
 def gen():
     """Video streaming generator function."""
     while True:
-        frame = od.get_detected_objects_image()
+        frame, result = od.get_detected_objects_image_and_result()
         ret, jpeg = cv2.imencode('.jpg', frame)
+        bot.follow_object_one_step('person', result)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n')
 

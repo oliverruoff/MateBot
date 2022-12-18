@@ -50,31 +50,33 @@ class Robot:
         self.back_left_stepper.set_direction_clockwise(True)
         self.back_right_stepper.set_direction_clockwise(False)
 
-    def follow_object(self, object_to_follow='person'):
-        move_threshold = self.camera_width/10
+    def follow_object_continously(self, object_to_follow='person'):
         while True:
-            print('Looking for:', object_to_follow)
-            result = self.od.detect_objects()
-            for detection in result.detections:
-                for category in detection.categories:
-                    print('Detected: ', category.category_name)
-                    if category.category_name == object_to_follow:
-                        print('Object detected:', object_to_follow)
-                        bounding_box_origin_x = detection.bounding_box.origin_x
-                        bounding_box_width = detection.bounding_box.width
-                        bounding_box_height = detection.bounding_box.height
-                        object_center = bounding_box_origin_x + bounding_box_width/2
-                        offset_from_center = abs(object_center - self.camera_width/2)
-                        turn_related_to_offset = offset_from_center / 4
-                        if object_center < self.camera_width/2 and turn_related_to_offset > move_threshold:
-                            print(object_to_follow, 'is to my left. Moving: ',turn_related_to_offset,'°')
-                            self.turn_degree_gyro_supported(turn_related_to_offset, False)
-                            pass
-                        elif object_center > self.camera_width/2 and turn_related_to_offset > move_threshold:
-                            print(object_to_follow, 'is to my right. Moving: ',turn_related_to_offset,'°')
-                            self.turn_degree_gyro_supported(turn_related_to_offset, True)
-                        else:
-                            print(object_to_follow, 'seems to be right in front of me.')
+            self.follow_object_one_step(object_to_follow, self.od.detect_objects())
+
+    def follow_object_one_step(self, object_to_follow, object_detection_result):
+        move_threshold = 5 # degree
+        print('Looking for:', object_to_follow)
+        for detection in object_detection_result.detections:
+            for category in detection.categories:
+                print('Detected: ', category.category_name)
+                if category.category_name == object_to_follow:
+                    print('Object detected:', object_to_follow)
+                    bounding_box_origin_x = detection.bounding_box.origin_x
+                    bounding_box_width = detection.bounding_box.width
+                    bounding_box_height = detection.bounding_box.height
+                    object_center = bounding_box_origin_x + bounding_box_width/2
+                    offset_from_center = abs(object_center - self.camera_width/2)
+                    turn_related_to_offset = offset_from_center / 4
+                    if object_center < self.camera_width/2 and turn_related_to_offset > move_threshold:
+                        print(object_to_follow, 'is to my left. Moving: ',turn_related_to_offset,'°')
+                        self.turn_degree_gyro_supported(turn_related_to_offset, False)
+                        pass
+                    elif object_center > self.camera_width/2 and turn_related_to_offset > move_threshold:
+                        print(object_to_follow, 'is to my right. Moving: ',turn_related_to_offset,'°')
+                        self.turn_degree_gyro_supported(turn_related_to_offset, True)
+                    else:
+                        print(object_to_follow, 'seems to be right in front of me.')
 
 
 

@@ -38,7 +38,7 @@ try:
 
     # robot.lidar.scan_angle_with_stepper_position_reset(360)
 
-    robot.follow_object(object_to_follow='person')
+    robot.follow_object_continously()
 
 except KeyboardInterrupt:
 

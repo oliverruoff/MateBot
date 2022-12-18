@@ -36,7 +36,7 @@ class Detector:
     # Run object detection estimation using the model.
     return self.detector.detect(input_tensor)
 
-  def get_detected_objects_image(self):
+  def get_detected_objects_image_and_result(self):
     """Detecting objects returning image with bounding boxes
 
     Returns:
@@ -53,4 +53,4 @@ class Detector:
     # Draw keypoints and edges on input image
     image = utils.visualize(image, detection_result)
 
-    return image
+    return image, detection_result
