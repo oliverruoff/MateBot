@@ -12,8 +12,8 @@ class Robot:
         self.back_right_stepper = back_right_stepper
         self.mpu = mpu
         self.lidar = lidar
-        self.camera_width = 640
-        self.camera_height = 480
+        self.camera_width = 160
+        self.camera_height = 120
         self.od = detection.Detector(
             model_path='object_detection/model/efficientdet_lite0.tflite',
             max_results=5, score_threshold=0.3, camera_width=self.camera_width, camera_height=self.camera_height)
