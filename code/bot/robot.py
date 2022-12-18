@@ -55,9 +55,9 @@ class Robot:
         while True:
             print('Looking for:', object_to_follow)
             result = self.od.detect_objects()
-            print('Found:', [category.category_name for category in {detection.categories for detection in result.detections}])
             for detection in result.detections:
                 for category in detection.categories:
+                    print('Detected: ', category.category_name)
                     if category.category_name == object_to_follow:
                         print('Object detected:', object_to_follow)
                         bounding_box_origin_x = detection.bounding_box.origin_x
