@@ -66,11 +66,11 @@ class Robot:
                         object_center = bounding_box_origin_x + bounding_box_width/2
                         offset_from_center = abs(object_center - self.camera_width/2)
                         turn_related_to_offset = offset_from_center / 4
-                        if object_center < self.camera_width/2 - move_threshold:
+                        if object_center < self.camera_width/2 and turn_related_to_offset > move_threshold:
                             print(object_to_follow, 'is to my left. Moving: ',turn_related_to_offset,'°')
                             self.turn_degree_gyro_supported(turn_related_to_offset, False)
                             pass
-                        elif object_center > self.camera_width/2 + move_threshold:
+                        elif object_center > self.camera_width/2 and turn_related_to_offset > move_threshold:
                             print(object_to_follow, 'is to my right. Moving: ',turn_related_to_offset,'°')
                             self.turn_degree_gyro_supported(turn_related_to_offset, True)
                         else:
