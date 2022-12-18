@@ -55,7 +55,7 @@ class Robot:
         move_threshold = self.camera_width/10
         while True:
             for detection in result.detections:
-                for category in detection:
+                for category in detection.categories:
                     if category.category_name == object_to_follow:
                         print('Object detected:', object_to_follow)
                         bounding_box_origin_x = detection.bounding_box.origin_x
