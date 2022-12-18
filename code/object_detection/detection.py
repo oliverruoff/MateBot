@@ -10,7 +10,7 @@ class Detector:
   def __init__(self, model_path='object_detection/model/efficientdet_lite0.tflite',
     max_results=5, score_threshold=0.3, camera_width=640, camera_height=480):
 
-    self.cam = camera.camera()
+    self.cam = camera.camera(camera_width=camera_width, camera_height=camera_height)
 
     # Initialize the object detection model
     base_options = core.BaseOptions(

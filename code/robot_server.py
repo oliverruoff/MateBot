@@ -16,7 +16,8 @@ html_template_dir = os.path.join(dir_path, 'server')
 
 app = Flask(__name__, template_folder=html_template_dir)
 
-od = detection.Detector()
+od = detection.Detector(model_path='object_detection/model/efficientdet_lite0.tflite',
+    max_results=5, score_threshold=0.3, camera_width=320, camera_height=240)
 
 def init_robot():
     ####################################
