@@ -16,7 +16,7 @@ class Robot:
         self.camera_height = 480
         self.od = detection.Detector(
             model_path='object_detection/model/efficientdet_lite0.tflite',
-            max_results=5, score_threshold=0.3, camera_width=self.camera_width, camera_height=self.camera_heights)
+            max_results=5, score_threshold=0.3, camera_width=self.camera_width, camera_height=self.camera_height)
 
         self.position_X = 0
         self.position_Y = 0
