@@ -12,7 +12,11 @@ class Robot:
         self.back_right_stepper = back_right_stepper
         self.mpu = mpu
         self.lidar = lidar
-        self.od = detection.Detector()
+        self.camera_width = 640
+        self.camera_height = 480
+        self.od = detection.Detector(
+            model_path='object_detection/model/efficientdet_lite0.tflite',
+            max_results=5, score_threshold=0.3, camera_width=self.camera_width, camera_height=self.camera_heights)
 
         self.position_X = 0
         self.position_Y = 0
@@ -46,11 +50,28 @@ class Robot:
         self.back_left_stepper.set_direction_clockwise(True)
         self.back_right_stepper.set_direction_clockwise(False)
 
-    def follow_person(self):
+    def follow_object(self, object_to_follow='person'):
         result = self.od.detect_objects()
-        for detection in result.detections:
-            for category in detection:
-                break
+        move_threshold = self.camera_width/10
+        while True:
+            for detection in result.detections:
+                for category in detection:
+                    if category.category_name == object_to_follow:
+                        print('Object detected:', object_to_follow)
+                        bounding_box_origin_x = detection.bounding_box.origin_x
+                        bounding_box_width = detection.bounding_box.width
+                        bounding_box_height = detection.bounding_box.height
+                        object_center = bounding_box_origin_x + bounding_box_width/2
+                        if object_center < self.camera_width/2 - move_threshold:
+                            print(object_to_follow, 'is to my left.')
+                            self.turn_degree_gyro_supported(10, False)
+                            pass
+                        elif object_center > self.camera_width/2 + move_threshold:
+                            print(object_to_follow, 'is to my right.')
+                            self.turn_degree_gyro_supported(10, True)
+                        else:
+                            print(object_to_follow, 'seems to be right in front of me.')
+
 
 
     def turn_all_steppers_angle(self, degree, asynch, ramping):

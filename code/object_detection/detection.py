@@ -7,15 +7,16 @@ from sensors import camera
 
 class Detector:
 
-  def __init__(self):
+  def __init__(self, model_path='object_detection/model/efficientdet_lite0.tflite',
+    max_results=5, score_threshold=0.3, camera_width=640, camera_height=480):
 
     self.cam = camera.camera()
 
     # Initialize the object detection model
     base_options = core.BaseOptions(
-        file_name='object_detection/model/efficientdet_lite0.tflite', use_coral=False, num_threads=4)
+        file_name=model_path, use_coral=False, num_threads=4)
     detection_options = processor.DetectionOptions(
-        max_results=5, score_threshold=0.3)
+        max_results=max_results, score_threshold=score_threshold)
     options = vision.ObjectDetectorOptions(
         base_options=base_options, detection_options=detection_options)
     self.detector = vision.ObjectDetector.create_from_options(options)
@@ -49,7 +50,6 @@ class Detector:
 
     # Run object detection estimation using the model.
     detection_result = self.detector.detect(input_tensor)
-    print(detection_result)
     # Draw keypoints and edges on input image
     image = utils.visualize(image, detection_result)
 

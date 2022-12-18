@@ -34,12 +34,11 @@ def init_robot():
     return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, lidar)
 
 try:
-    #robot = init_robot()
+    robot = init_robot()
 
-    #robot.lidar.scan_angle_with_stepper_position_reset(360)
+    # robot.lidar.scan_angle_with_stepper_position_reset(360)
 
-    od = detection.Detector()
-    print(od.detect_objects())
+    robot.follow_object(object_to_follow='person')
 
 except KeyboardInterrupt:
 

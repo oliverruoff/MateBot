@@ -4,9 +4,9 @@ class camera:
 
 
 
-    def __init__(self):
-        self.width = 640
-        self.height = 480
+    def __init__(self, width=640, height=480):
+        self.width = width
+        self.height = height
 
     def get_picture(self):
         cam = cv2.VideoCapture(0)
