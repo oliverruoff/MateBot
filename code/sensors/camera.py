@@ -9,7 +9,7 @@ class camera:
         self.height = height
 
     def get_picture(self):
-        cam = cv2.VideoCapture(0)
+        cam = cv2.VideoCapture(-1)
         cam.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
         cam.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
         s, image = cam.read()
