@@ -16,18 +16,19 @@
   <div id="imgDiv" style="width:640px;height:480px;margin:10px auto;">
     <img id="img_id" src="{{ url_for('video_feed') }}" style="position:relative;">
   </div>
-  <button style="width:50px;height:50px;margin:1px;visibility: hidden;"></button>
-  <button onmousedown="move('up')" onmouseup="stop()" id="buttonUp"
-    style="width:50px;height:50px;margin:1px;">▲</button>
-  <button style="width:50px;height:50px;margin:1px;visibility: hidden;"></button>
-  <br>
-  <button onmousedown="move('left')" onmouseup="stop()" id="buttonLeft"
-    style="width:50px;height:50px;margin:1px;">◄</button>
-  <button onmousedown="move('down')" onmouseup="stop()" id="buttonDown"
-    style="width:50px;height:50px;margin:1px;">▼</button>
-  <button onmousedown="move('right')" onmouseup="stop()" id="buttonRight"
-    style="width:50px;height:50px;margin:1px;">►</button>
-
+  <div style="position:relative;">
+    <button style="width:50px;height:50px;margin:1px;visibility: hidden;"></button>
+    <button onmousedown="move('up')" onmouseup="stop()" id="buttonUp"
+      style="width:50px;height:50px;margin:1px;">▲</button>
+    <button style="width:50px;height:50px;margin:1px;visibility: hidden;"></button>
+    <br>
+    <button onmousedown="move('left')" onmouseup="stop()" id="buttonLeft"
+      style="width:50px;height:50px;margin:1px;">◄</button>
+    <button onmousedown="move('down')" onmouseup="stop()" id="buttonDown"
+      style="width:50px;height:50px;margin:1px;">▼</button>
+    <button onmousedown="move('right')" onmouseup="stop()" id="buttonRight"
+      style="width:50px;height:50px;margin:1px;">►</button>
+  </div>
   <script type="text/javascript">
     keyControl = false;
     keysPressed = [];
