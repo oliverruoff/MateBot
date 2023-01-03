@@ -42,7 +42,7 @@ def init_robot():
 
     mpu = mpu6050.mpu6050()
 
-    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None)
+    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None, None)
 
 @app.route("/move")
 def move():
