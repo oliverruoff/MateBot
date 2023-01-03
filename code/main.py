@@ -30,8 +30,11 @@ def init_robot():
     mpu = mpu6050.mpu6050()
     #tflu = tfluna.TFLuna()
     #lidar = lidar.lidar(lidar_stepper, tflu)
+    od = detection.Detector(
+            model_path='object_detection/model/efficientdet_lite0.tflite',
+            max_results=5, score_threshold=0.3, camera_width=640, camera_height=480)
 
-    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None)
+    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None, od)
 
 try:
     robot = init_robot()

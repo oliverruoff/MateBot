@@ -5,7 +5,7 @@ from object_detection import detection
 
 class Robot:
 
-    def __init__(self, front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, lidar):
+    def __init__(self, front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, lidar, object_detection):
         self.front_left_stepper = front_left_stepper
         self.front_right_stepper = front_right_stepper
         self.back_left_stepper = back_left_stepper
@@ -14,10 +14,7 @@ class Robot:
         self.lidar = lidar
         self.camera_width = 640
         self.camera_height = 480
-        self.od = detection.Detector(
-            model_path='object_detection/model/efficientdet_lite0.tflite',
-            max_results=5, score_threshold=0.3, camera_width=self.camera_width, camera_height=self.camera_height)
-
+        self.od = object_detection 
         self.position_X = 0
         self.position_Y = 0
         self.heading = 0
