@@ -41,33 +41,8 @@ def init_robot():
         DIR=16, STEP=20, SLP=21, steps_per_revolution=200, step_delay_seconds=0.005, activate_on_high=True, gpio_mode=GPIO.BCM)
 
     mpu = mpu6050.mpu6050()
-    # tfluna = tfluna.TFLuna() #TODO: fix
-    # lidar = lidar.lidar(lidar_stepper, tfluna)
 
     return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None)
-
-def get_frequency_for_percent(percent):
-    print('Checking for percent:', percent)
-    val = 0
-    if percent < 11:
-            val = 320
-    elif percent > 11 and percent < 22:
-        val = 400
-    elif percent > 22 and percent < 33:
-        val = 500
-    elif percent > 33 and percent < 44:
-        val = 800
-    elif percent > 44 and percent < 55:
-        val = 1000
-    elif percent > 55 and percent < 66:
-        val = 1600
-    elif percent > 66 and percent < 77:
-        val = 2000
-    elif percent > 77 and percent < 88:
-        val = 4000
-    elif percent > 88 :
-        val = 8000
-    return val
 
 @app.route("/move")
 def move():
