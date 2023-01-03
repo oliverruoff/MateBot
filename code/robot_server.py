@@ -16,8 +16,10 @@ html_template_dir = os.path.join(dir_path, 'server')
 
 app = Flask(__name__, template_folder=html_template_dir)
 
-od = detection.Detector(model_path='object_detection/model/efficientdet_lite0.tflite',
-    max_results=5, score_threshold=0.3, camera_width=640, camera_height=480)
+cam = camera.camera()
+
+#od = detection.Detector(model_path='object_detection/model/efficientdet_lite0.tflite',
+#    max_results=5, score_threshold=0.3, camera_width=640, camera_height=480)
 
 def init_robot():
     ####################################
@@ -67,39 +69,6 @@ def get_frequency_for_percent(percent):
         val = 8000
     return val
 
-@app.route("/joystick")
-def joystick():
-    x = int(request.args.get('x'))
-    y = int(request.args.get('y'))
-
-    print('x:', x)
-    print('y:', y)
-    abs_y = abs(y)
-    abs_x = abs(x)
-    if x == 0 and y == 0:
-        bot.deactivate_all_drive_steppers()
-        return 'Stopped motors.'
-
-    if y > 0:
-        bot.set_direction_forward()
-    elif y < 0:
-        bot.set_direction_backward()
-    else:
-        bot.deactivate_all_drive_steppers()
-
-    if x > 0:
-        left = get_frequency_for_percent(abs_y)
-        right = get_frequency_for_percent(int(abs_y - (abs_x*(abs_y/100))))
-    elif x < 0:
-        right = get_frequency_for_percent(abs_y)
-        left = get_frequency_for_percent(int(abs_y - (abs_x*(abs_y/100))))
-    else:
-        return "Error: x value seems to be strange: " + str(x)
-    print('left:', left, 'right:', right)
-    bot.front_left_stepper.run_continuously(frequency=right)
-    bot.front_left_stepper.run_continuously(frequency=left)
-    return 'Done'
-
 @app.route("/move")
 def move():
     global bot
@@ -136,20 +105,16 @@ def turn():
     bot.run_continuously_all_steppers()
     return "Turning"
 
-@app.route("/joystickscript")
-def joystickscript():
-    return js_str
-
 
 @app.route("/")
 def remote():
-    return render_template('remote.html', js_path=js_path)
+    return render_template('remote.html')
 
 
 def gen():
     """Video streaming generator function."""
     while True:
-        frame, result  = od.get_detected_objects_image_and_result()
+        frame = cam.get_picture()
         ret, jpeg = cv2.imencode('.jpg', frame)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n')
@@ -166,10 +131,5 @@ if __name__ == "__main__":
     
     bot = init_robot()
     bot.deactivate_all_drive_steppers() # so that there is clearly no holding torque on the steppers
-
-    # remote_html = prepare_remote()
-    js_path = os.path.join(dir_path, 'server', 'joystick.js')
-    with open(js_path, 'r') as file:
-        js_str = file.read()
 
     app.run(host='0.0.0.0', port=5001)
