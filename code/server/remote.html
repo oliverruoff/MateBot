@@ -16,11 +16,30 @@
   <div id="imgDiv" style="width:640px;height:480px;margin:10px auto;">
     <img id="img_id" src="{{ url_for('video_feed') }}" style="position:relative;">
   </div>
-  <script type="text/javascript">
+  <button style="width:50px;height:50px;margin:1px;visibility: hidden;"></button>
+  <button onmousedown="move('up')" onmouseup="stop()" id="buttonUp" style="width:50px;height:50px;margin:1px;" >▲</button>
+  <button style="width:50px;height:50px;margin:1px;visibility: hidden;"></button>
+  <br>
+  <button id="buttonLeft" style="width:50px;height:50px;margin:1px;">◄</button>
+  <button id="buttonDown" style="width:50px;height:50px;margin:1px;">▼</button>
+  <button id="buttonRight" style="width:50px;height:50px;margin:1px;">►</button>
+
+  <script type="text/javascript"> 
     keyControl = false;
     keysPressed = [];
     var oldUrl = ""
 
+    function stop() {
+      httpGet("{{ url_for('stop') }}")
+    }
+
+    function move(mode) {
+      console.log('Button Pressed: ', mode)
+      if (mode == 'up') {
+        httpGet("{{ url_for('move') }}?forward=True")
+      }
+    }
+    
     function reactToKeysPressed() {
       console.log('KeysPressed: ', keysPressed)
       console.log('Length: ', keysPressed.length)
@@ -35,7 +54,7 @@
           httpGet("{{ url_for('turn') }}?direction=right")
         }
       } else if (keysPressed.length == 0) {
-        httpGet("{{ url_for('stop') }}")
+        stop()
       } else {
         console.log('Too many buttons pressed!');
       }
