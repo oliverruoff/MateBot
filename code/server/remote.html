@@ -17,14 +17,18 @@
     <img id="img_id" src="{{ url_for('video_feed') }}" style="position:relative;">
   </div>
   <button style="width:50px;height:50px;margin:1px;visibility: hidden;"></button>
-  <button onmousedown="move('up')" onmouseup="stop()" id="buttonUp" style="width:50px;height:50px;margin:1px;" >▲</button>
+  <button onmousedown="move('up')" onmouseup="stop()" id="buttonUp"
+    style="width:50px;height:50px;margin:1px;">▲</button>
   <button style="width:50px;height:50px;margin:1px;visibility: hidden;"></button>
   <br>
-  <button id="buttonLeft" style="width:50px;height:50px;margin:1px;">◄</button>
-  <button id="buttonDown" style="width:50px;height:50px;margin:1px;">▼</button>
-  <button id="buttonRight" style="width:50px;height:50px;margin:1px;">►</button>
+  <button onmousedown="move('left')" onmouseup="stop()" id="buttonLeft"
+    style="width:50px;height:50px;margin:1px;">◄</button>
+  <button onmousedown="move('down')" onmouseup="stop()" id="buttonDown"
+    style="width:50px;height:50px;margin:1px;">▼</button>
+  <button onmousedown="move('right')" onmouseup="stop()" id="buttonRight"
+    style="width:50px;height:50px;margin:1px;">►</button>
 
-  <script type="text/javascript"> 
+  <script type="text/javascript">
     keyControl = false;
     keysPressed = [];
     var oldUrl = ""
@@ -37,9 +41,15 @@
       console.log('Button Pressed: ', mode)
       if (mode == 'up') {
         httpGet("{{ url_for('move') }}?forward=True")
-      }
+      } else if (mode == 'down') {
+        httpGet("{{ url_for('move') }}?forward=False")
+      } else if (mode == 'left') {
+        httpGet("{{ url_for('turn') }}?direction=left")
+      } else if (mode == 'right') {
+        httpGet("{{ url_for('turn') }}?direction=right")
+      } else if (mode == 'up') {}
     }
-    
+
     function reactToKeysPressed() {
       console.log('KeysPressed: ', keysPressed)
       console.log('Length: ', keysPressed.length)
