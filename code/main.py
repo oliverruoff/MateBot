@@ -40,7 +40,7 @@ try:
     robot = init_robot()
 
     robot.front_right_stepper.set_direction_clockwise(False)
-    robot.back_left_stepper.set_direction_clockwise(False)
+    robot.back_right_stepper.set_direction_clockwise(False)
 
     robot.run_continuously_all_steppers()
 
