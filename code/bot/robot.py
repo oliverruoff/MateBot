@@ -176,3 +176,27 @@ class Robot:
 
         self.heading = (self.heading +
                         degree) % 360 if clockwise else (self.heading - degree) % -360
+
+    def set_direction_vertical_right(self):
+        self.back_right_stepper.set_direction_clockwise(True)
+        self.back_left_stepper.set_direction_clockwise(True)
+        self.front_right_stepper.set_direction_clockwise(False)
+        self.front_left_stepper.set_direction_clockwise(False)
+
+    def set_direction_vertical_left(self):
+        self.back_right_stepper.set_direction_clockwise(False)
+        self.back_left_stepper.set_direction_clockwise(False)
+        self.front_right_stepper.set_direction_clockwise(True)
+        self.front_left_stepper.set_direction_clockwise(True)
+
+    def set_direction_forward(self):
+        self.back_right_stepper.set_direction_clockwise(True)
+        self.back_left_stepper.set_direction_clockwise(False)
+        self.front_right_stepper.set_direction_clockwise(True)
+        self.front_left_stepper.set_direction_clockwise(False)
+    
+    def set_direction_backward(self):
+        self.back_right_stepper.set_direction_clockwise(False)
+        self.back_left_stepper.set_direction_clockwise(True)
+        self.front_right_stepper.set_direction_clockwise(False)
+        self.front_left_stepper.set_direction_clockwise(True)

@@ -39,11 +39,14 @@ def init_robot():
 try:
     robot = init_robot()
 
-    robot.front_right_stepper.set_direction_clockwise(False)
-    robot.front_left_stepper.set_direction_clockwise(False)
-
+    robot.set_direction_forward()
     robot.run_continuously_all_steppers()
-
+    time.sleep(2)
+    robot.set_direction_backward()
+    time.sleep(2)
+    robot.set_direction_vertical_left()
+    time.sleep(2)
+    robot.set_direction_vertical_right()
     time.sleep(2)
     robot.stop_continously_all_steppers()
 
