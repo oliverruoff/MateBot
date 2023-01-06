@@ -74,7 +74,7 @@
         } else if (keysPressed.indexOf('KeyQ') >= 0) {
           httpGet("{{ url_for('move') }}?direction=verticalLeft")
         } else if (keysPressed.indexOf('KeyE') >= 0) {
-          httpGet("{{ url_for('turn') }}?direction=verticalRight")
+          httpGet("{{ url_for('move') }}?direction=verticalRight")
         }
       } else if (keysPressed.length == 0) {
         stop()
