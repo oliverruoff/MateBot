@@ -39,9 +39,18 @@ def init_robot():
 try:
     robot = init_robot()
 
+    robot.front_right_stepper.set_direction_clockwise(False)
+    robot.back_left_stepper.set_direction_clockwise(False)
+
+    robot.run_continuously_all_steppers()
+
+    time.sleep(2)
+    robot.stop_continously_all_steppers()
+
+
     # robot.lidar.scan_angle_with_stepper_position_reset(360)
 
-    robot.follow_object_continously()
+    # robot.follow_object_continously()
 
 except KeyboardInterrupt:
 
