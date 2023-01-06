@@ -3,6 +3,7 @@ from sensors import mpu6050
 from bot import robot
 from sensors import tfluna
 from object_detection import detection
+from ina219 import INA219
 
 
 import time
@@ -39,16 +40,31 @@ def init_robot():
 try:
     robot = init_robot()
 
-    robot.set_direction_forward()
-    robot.run_continuously_all_steppers()
-    time.sleep(2)
-    robot.set_direction_backward()
-    time.sleep(2)
-    robot.set_direction_vertical_left()
-    time.sleep(2)
-    robot.set_direction_vertical_right()
-    time.sleep(2)
-    robot.stop_continously_all_steppers()
+    ina = INA219(shunt_ohms=0.1,
+        max_expected_amps = 0.6, address=0x40)
+
+    ina.configure(
+        voltage_range=ina.RANGE_16V,
+        gain=ina.GAIN_AUTO,
+        bus_adc=ina.ADC_128SAMP,
+        shunt_adc=ina.ADC_128SAMP)
+
+    V = ina.voltage()
+    I = ina.current()
+    P = ina.power()
+
+    print('volt:', V, 'current:', I ,'power:', P)
+
+    #robot.set_direction_forward()
+    #robot.run_continuously_all_steppers()
+    #time.sleep(2)
+    #robot.set_direction_backward()
+    #time.sleep(2)
+    #robot.set_direction_vertical_left()
+    #time.sleep(2)
+    #robot.set_direction_vertical_right()
+    #time.sleep(2)
+    #robot.stop_continously_all_steppers()
 
 
     # robot.lidar.scan_angle_with_stepper_position_reset(360)

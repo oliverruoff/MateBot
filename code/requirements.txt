@@ -5,3 +5,4 @@ cvlib
 "picamera[array]"
 tflite-runtime
 tflite_support
+pi-ina219
