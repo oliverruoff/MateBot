@@ -47,17 +47,19 @@ def init_robot():
 @app.route("/move")
 def move():
     global bot
-    forward = request.args.get('forward')
-    if forward == 'True':
-        forward = True
-    else:
-        forward = False
-    if forward:
+    direction = request.args.get('direction')
+    if direction == 'forward':
         print('forward selected')
         bot.set_direction_forward()
-    else:
+    elif direction == 'backward':
         print('backward selected')
         bot.set_direction_backward()
+    elif direction == 'verticalLeft':
+        print('Vertical Left selected')
+        bot.set_direction_vertical_left()
+    elif direction == 'verticalRight':
+        print('Vertical Right selected')
+        bot.set_direction_vertical_right()
     bot.run_continuously_all_steppers()
     return "Moving"
 

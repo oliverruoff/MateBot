@@ -18,10 +18,12 @@
   </div>
   <div style="width: 100%;text-align: center;">
     <div style="margin: 0 auto;">
-    <button style="width:50px;height:50px;margin:1px;visibility: hidden;"></button>
+    <button onmousedown="move('verticalLeft')" onmouseup="stop()" id="buttonVerticalLeft" 
+      style="width:50px;height:50px;margin:1px;">◤</button>
     <button onmousedown="move('up')" onmouseup="stop()" id="buttonUp"
       style="width:50px;height:50px;margin:1px;">▲</button>
-    <button style="width:50px;height:50px;margin:1px;visibility: hidden;"></button>
+    <button onmousedown="move('verticalRight')" onmouseup="stop()" id="buttonVerticalRight" 
+      style="width:50px;height:50px;margin:1px;">◥</button>
     <br>
     <button onmousedown="move('left')" onmouseup="stop()" id="buttonLeft"
       style="width:50px;height:50px;margin:1px;">◄</button>
@@ -43,14 +45,18 @@
     function move(mode) {
       console.log('Button Pressed: ', mode)
       if (mode == 'up') {
-        httpGet("{{ url_for('move') }}?forward=True")
+        httpGet("{{ url_for('move') }}?direction=forward")
       } else if (mode == 'down') {
-        httpGet("{{ url_for('move') }}?forward=False")
+        httpGet("{{ url_for('move') }}?direction=backward")
       } else if (mode == 'left') {
         httpGet("{{ url_for('turn') }}?direction=left")
       } else if (mode == 'right') {
         httpGet("{{ url_for('turn') }}?direction=right")
-      } else if (mode == 'up') {}
+      } else if (mode == 'verticalLeft') {
+        httpGet("{{ url_for('move') }}?direction=verticalLeft")
+      } else if (mode == 'verticalRight') {
+        httpGet("{{ url_for('move') }}?direction=verticalRight")
+      }
     }
 
     function reactToKeysPressed() {
@@ -58,13 +64,17 @@
       console.log('Length: ', keysPressed.length)
       if (keysPressed.length == 1) {
         if ((keysPressed.indexOf('KeyW') >= 0 || keysPressed.indexOf('ArrowUp') >= 0)) {
-          httpGet("{{ url_for('move') }}?forward=True")
+          httpGet("{{ url_for('move') }}?direction=forward")
         } else if ((keysPressed.indexOf('KeyS') >= 0 || keysPressed.indexOf('ArrowDown')) >= 0) {
-          httpGet("{{ url_for('move') }}?forward=False")
+          httpGet("{{ url_for('move') }}?direction=backward")
         } else if ((keysPressed.indexOf('KeyA') >= 0 || keysPressed.indexOf('ArrowLeft')) >= 0) {
           httpGet("{{ url_for('turn') }}?direction=left")
         } else if ((keysPressed.indexOf('KeyD') >= 0 || keysPressed.indexOf('ArrowRight')) >= 0) {
           httpGet("{{ url_for('turn') }}?direction=right")
+        } else if (keysPressed.indexOf('KeyQ') >= 0) {
+          httpGet("{{ url_for('move') }}?direction=verticalLeft")
+        } else if (keysPressed.indexOf('KeyE') >= 0) {
+          httpGet("{{ url_for('turn') }}?direction=verticalRight")
         }
       } else if (keysPressed.length == 0) {
         stop()
