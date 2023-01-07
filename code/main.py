@@ -42,7 +42,7 @@ try:
 
     while True:
         result = rob.od.detect_objects()
-        cat_names = [cat['category_name'] for cat in result['categories']]
+        cat_names = [cat['category_name'] for cat in result.detections]
         print(cat_names)
         time.sleep(1)
 
