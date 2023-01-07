@@ -14,5 +14,5 @@ class camera:
         cam.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
         s, image = cam.read()
         image = cv2.flip(image, flipCode=-1)
-        image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+        #image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
         return image
