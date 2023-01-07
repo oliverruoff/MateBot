@@ -9,8 +9,6 @@ from bot import robot
 from sensors import camera
 import RPi.GPIO as GPIO
 
-from object_detection import detection
-
 dir_path = os.path.dirname(os.path.realpath(__file__))
 html_template_dir = os.path.join(dir_path, 'server')
 

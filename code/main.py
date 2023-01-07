@@ -41,7 +41,9 @@ try:
     rob = init_robot()
 
     while True:
-        print(rob.od.detect_objects())
+        result = rob.od.detect_objects()
+        cat_names = [cat['category_name'] for cat in result['categories']]
+        print(cat_names)
         time.sleep(1)
 
     #rob.set_direction_forward()
