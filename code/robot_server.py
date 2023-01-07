@@ -46,7 +46,7 @@ def init_robot():
             model_path='object_detection/model/ssd_mobilenet_v1_1_metadata_1.tflite',
             max_results=5, score_threshold=0.3, camera_width=640, camera_height=480)
 
-    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None, None)
+    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None, od)
 
 @app.route("/move")
 def move():
@@ -96,7 +96,7 @@ def gen():
     """Video streaming generator function."""
     while True:
         global od
-        frame, result = od.get_detected_objects_image_and_result()
+        frame, result = bot.od.get_detected_objects_image_and_result()
         # frame = cam.get_picture()
         ret, jpeg = cv2.imencode('.jpg', frame)
         yield (b'--frame\r\n'
