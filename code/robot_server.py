@@ -44,7 +44,7 @@ def init_robot():
 
     od = detection.Detector(
             model_path='object_detection/model/ssd_mobilenet_v1_1_metadata_1.tflite',
-            max_results=5, score_threshold=0.3, camera_width=640, camera_height=480)
+            max_results=200, score_threshold=0.3, camera_width=640, camera_height=480)
 
     return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None, od)
 

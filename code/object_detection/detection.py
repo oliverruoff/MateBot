@@ -8,7 +8,7 @@ from sensors import camera
 class Detector:
 
   def __init__(self, model_path='object_detection/model/efficientdet_lite0.tflite',
-    max_results=200, score_threshold=0.3, camera_width=640, camera_height=480):
+    max_results=5, score_threshold=0.3, camera_width=640, camera_height=480):
 
     self.cam = camera.camera(width=camera_width, height=camera_height)
 
