@@ -42,8 +42,7 @@ try:
 
     while True:
         result = rob.od.detect_objects()
-        cat_names = [cat['category_name'] for cat in result.detections]
-        print(cat_names)
+        print(result)
         time.sleep(1)
 
     #rob.set_direction_forward()
