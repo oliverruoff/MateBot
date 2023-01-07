@@ -38,45 +38,33 @@ def init_robot():
     return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None, od)
 
 try:
-    robot = init_robot()
+    rob = init_robot()
+    while True:
+        print(rob.od.detect_objects())
+        time.sleep(1)
 
-    ina = INA219(shunt_ohms=0.1,
-        max_expected_amps = 0.6, address=0x40)
-
-    ina.configure(
-        voltage_range=ina.RANGE_16V,
-        gain=ina.GAIN_AUTO,
-        bus_adc=ina.ADC_128SAMP,
-        shunt_adc=ina.ADC_128SAMP)
-
-    V = ina.voltage()
-    I = ina.current()
-    P = ina.power()
-
-    print('volt:', V, 'current:', I ,'power:', P)
-
-    #robot.set_direction_forward()
-    #robot.run_continuously_all_steppers()
+    #rob.set_direction_forward()
+    #rob.run_continuously_all_steppers()
     #time.sleep(2)
-    #robot.set_direction_backward()
+    #rob.set_direction_backward()
     #time.sleep(2)
-    #robot.set_direction_vertical_left()
+    #rob.set_direction_vertical_left()
     #time.sleep(2)
-    #robot.set_direction_vertical_right()
+    #rob.set_direction_vertical_right()
     #time.sleep(2)
-    #robot.stop_continously_all_steppers()
+    #rob.stop_continously_all_steppers()
 
 
-    # robot.lidar.scan_angle_with_stepper_position_reset(360)
+    # rob.lidar.scan_angle_with_stepper_position_reset(360)
 
-    # robot.follow_object_continously()
+    # rob.follow_object_continously()
 
 except KeyboardInterrupt:
 
     # removing holding torque
-    robot.front_right_stepper.deactivate()
-    robot.front_left_stepper.deactivate()
-    robot.back_right_stepper.deactivate()
-    robot.back_left_stepper.deactivate()
-    robot.lidar.deactivate()
+    rob.front_right_stepper.deactivate()
+    rob.front_left_stepper.deactivate()
+    rob.back_right_stepper.deactivate()
+    rob.back_left_stepper.deactivate()
+    rob.lidar.deactivate()
 
