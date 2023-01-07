@@ -40,16 +40,6 @@ def init_robot():
 try:
     rob = init_robot()
 
-    import os
-    from tflite_support import metadata as _metadata
-    from tflite_support import metadata_schema_py_generated as _metadata_fb
-    model_file = 'object_detection/model/efficientdet_lite0.tflite'
-    displayer = _metadata.MetadataDisplayer.with_model_file(model_file)
-    export_json_file = os.path.join(os.path.splitext(model_file)[0] + ".json")
-    json_file = displayer.get_metadata_json()
-    with open(export_json_file, "w") as f:
-        f.write(json_file)
-
     while True:
         print(rob.od.detect_objects())
         time.sleep(1)
