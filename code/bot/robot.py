@@ -218,4 +218,4 @@ class Robot:
                 self.turn_degree_gyro_supported(degree_or_cm, True)
             else:
                 print('Mode:', mode, 'is not supported!')
-            time.sleep()
+            time.sleep(pause_seconds_between_commands)
