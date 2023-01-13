@@ -123,6 +123,8 @@ class Robot:
         desired_angle = (cm / self.TYRE_CIRCUMFERENCE_CM) * \
             360 * self.TURNING_ERROR_MULTIPLIER
 
+        print('<drive_cm> Desired_angle for all steppers:', desired_angle)
+
         self.turn_all_steppers_angle(desired_angle, False, ramping)
 
     def turn_degree(self, degree, clockwise, ramping=False):
