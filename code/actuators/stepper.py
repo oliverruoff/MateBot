@@ -179,24 +179,24 @@ class stepper:
         return y
 
     def _get_stepper_multiplier_from_mode(self):
-        """Checks current self.stepper_mode and returns multiplier for it, which is used to 
+        """Checks current self.step_mode and returns multiplier for it, which is used to 
         get the required number of steps to turn for a specific angle.
 
         Returns:
             int: Multiplier which is multiplied with steps required for microstepping a specific angle.
         """
         stepper_mode_multiplier = -1
-        if self.stepper_mode == 'Full':
+        if self.step_mode == 'Full':
             stepper_mode_multiplier = 1
-        elif self.stepper_mode == 'Half':
+        elif self.step_mode == 'Half':
             stepper_mode_multiplier = 2
-        elif self.stepper_mode == '1/4':
+        elif self.step_mode == '1/4':
             stepper_mode_multiplier = 4
-        elif self.stepper_mode == '1/8':
+        elif self.step_mode == '1/8':
             stepper_mode_multiplier = 8
-        elif self.stepper_mode == '1/16':
+        elif self.step_mode == '1/16':
             stepper_mode_multiplier = 16
-        elif self.stepper_mode == '1/32':
+        elif self.step_mode == '1/32':
             stepper_mode_multiplier = 32
         else:
             print('Failed to get stepper mode multiplier!')
