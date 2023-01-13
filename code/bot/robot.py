@@ -209,13 +209,17 @@ class Robot:
             mode = command[:1]
             degree_or_cm = int(command[1:])
             if mode == 'f':
+                print('Driving', degree_or_cm, 'cm forward.')
                 self.drive_cm(degree_or_cm, True)
             elif mode == 'b':
+                print('Driving', degree_or_cm, 'cm backward.')
                 self.drive_cm(degree_or_cm, False)
             elif mode == 'l':
-                self.turn_degree_gyro_supported(degree_or_cm, False)
+                print('Turning', degree_or_cm, 'to my left.')
+                self.turn_degree_gyro_supported(degree_or_cm, False)  
             elif mode == 'r':
+                print('Turning', degree_or_cm, 'to my right.')
                 self.turn_degree_gyro_supported(degree_or_cm, True)
             else:
-                print('Mode:', mode, 'is not supported!')
+                print('Mode:', mode, 'is not supported! Skipping this command.')
             time.sleep(pause_seconds_between_commands)
