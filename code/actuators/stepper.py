@@ -66,7 +66,7 @@ class stepper:
         """Sets the delay in seconds for the driver to wait between steps.
 
         Args:
-            stepper_delay_seconds (float): Delay in seconds to wait between steps.
+            step_delay_seconds (float): Delay in seconds to wait between steps.
         """
         self.step_delay_seconds = step_delay_seconds
 
@@ -175,7 +175,7 @@ class stepper:
         PARABOLA_SHARPNESS = 1000000
         x = GRAPH_WIDTH/all_steps*current_step
         y = PARABOLA_SHARPNESS*pow(x+X_AXIS_SHIFT, EXPONENT) * \
-            self.stepper_delay_seconds + self.stepper_delay_seconds
+            self.step_delay_seconds + self.step_delay_seconds
         return y
 
     def _get_stepper_multiplier_from_mode(self):
@@ -220,7 +220,7 @@ class stepper:
             if ramping:
                 delay = self._ramping_function(i, steps)
             else:
-                delay = self.stepper_delay_seconds
+                delay = self.step_delay_seconds
             GPIO.output(self.STEP, GPIO.HIGH)
             sleep(delay)
             GPIO.output(self.STEP, GPIO.LOW)
@@ -231,6 +231,6 @@ class stepper:
         """
         self.activate_stepper()
         GPIO.output(self.STEP, GPIO.HIGH)
-        sleep(self.stepper_delay_seconds)
+        sleep(self.step_delay_seconds)
         GPIO.output(self.STEP, GPIO.LOW)
-        sleep(self.stepper_delay_seconds)
+        sleep(self.step_delay_seconds)
