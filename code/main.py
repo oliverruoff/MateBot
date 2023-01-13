@@ -40,7 +40,7 @@ def init_robot():
 try:
     rob = init_robot()
 
-    rob.execute_move_command('f50,r90,f50,l45,b30', pause_seconds_between_commands=0.2)
+    rob.execute_move_command('f120,r90,f935,l90,f120', pause_seconds_between_commands=0.1)
 
 
     #while True:
