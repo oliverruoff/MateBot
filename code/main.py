@@ -42,6 +42,7 @@ try:
 
     rob.execute_move_command('f50,r90,f50,l45,b30', pause_seconds_between_commands=0.2)
 
+
     #while True:
     #    result = rob.od.detect_objects()
     #    print(result)
@@ -62,6 +63,10 @@ try:
     # rob.lidar.scan_angle_with_stepper_position_reset(360)
 
     # rob.follow_object_continously()
+    rob.front_right_stepper.deactivate()
+    rob.front_left_stepper.deactivate()
+    rob.back_right_stepper.deactivate()
+    rob.back_left_stepper.deactivate()
 
 except KeyboardInterrupt:
 
