@@ -207,7 +207,7 @@ class Robot:
         """
         for command in move_command.split(','):
             mode = command[:1]
-            degree_or_cm = command[1:]
+            degree_or_cm = int(command[1:])
             if mode == 'f':
                 self.drive_cm(degree_or_cm, True)
             elif mode == 'b':
