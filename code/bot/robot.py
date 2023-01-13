@@ -188,3 +188,34 @@ class Robot:
 
         self.heading = (self.heading +
                         degree) % 360 if clockwise else (self.heading - degree) % -360
+
+    def execute_move_command(self, move_command, pause_seconds_between_commands=0):
+        """Executes a move command which is put together by commas and which the roboter then will
+        execute step by step.
+        There are four chars allowed: f (forward), b (backward), r (right), l (left).
+        After each char there has to come an integer. For f and b this will be the cm,
+        the roboter has to drive in the given direction. For r and l this will be degree,
+        to which the roboter has to turn in the given direction.
+
+        E.g.: move_command = "f10,r90,b210,l180"
+        With this command, the robot will move 10cm forward, then turn 90 degree to its right,
+        then drive 210cm backward and finally turn 180 degree to its left.
+
+        Args:
+            move_command (str): Command, split by commas. E.g.: "f10,r90,b210,l180"
+            pause_seconds_between_commands (int): Will pause this number of seconds between executing commands (defaults: 0)
+        """
+        for command in move_command.split(','):
+            mode = command[:1]
+            degree_or_cm = command[1:]
+            if mode == 'f':
+                self.drive_cm(degree_or_cm, True)
+            elif mode == 'b':
+                self.drive_cm(degree_or_cm, False)
+            elif mode == 'l':
+                self.turn_degree_gyro_supported(degree_or_cm, False)
+            elif mode == 'r':
+                self.turn_degree_gyro_supported(degree_or_cm, True)
+            else:
+                print('Mode:', mode, 'is not supported!')
+            time.sleep()
