@@ -42,11 +42,11 @@ def init_robot():
 
     mpu = mpu6050.mpu6050()
 
-    #od = detection.Detector(
-    #        model_path='object_detection/model/efficientdet_lite0.tflite',
-    #        max_results=200, score_threshold=0.3, camera_width=640, camera_height=480)
+    od = detection.Detector(
+            model_path='object_detection/model/efficientdet_lite0.tflite',
+            max_results=200, score_threshold=0.3, camera_width=640, camera_height=480)
 
-    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None, None)
+    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None, object_detection=od)
 
 @app.route("/move")
 def move():
@@ -95,9 +95,9 @@ def remote():
 def gen():
     """Video streaming generator function."""
     while True:
-        # global od
-        # frame, result = bot.od.get_detected_objects_image_and_result()
-        frame = cam.get_picture()
+        global od
+        frame, result = bot.od.get_detected_objects_image_and_result()
+        # frame = cam.get_picture()
         ret, jpeg = cv2.imencode('.jpg', frame)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n')
