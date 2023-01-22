@@ -16,6 +16,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 html_template_dir = os.path.join(dir_path, 'server')
 
 app = Flask(__name__, template_folder=html_template_dir)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 cam = camera.camera()
 
