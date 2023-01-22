@@ -128,7 +128,6 @@ def video_feed():
 
 
 if __name__ == "__main__":
-    
     bot = init_robot()
     bot.deactivate_all_drive_steppers() # so that there is clearly no holding torque on the steppers
 
