@@ -15,8 +15,6 @@ from object_detection import detection
 dir_path = os.path.dirname(os.path.realpath(__file__))
 html_template_dir = os.path.join(dir_path, 'server')
 
-download_started = False
-
 app = Flask(__name__, template_folder=html_template_dir)
 
 cam = camera.camera()
@@ -100,8 +98,7 @@ def remote():
 
 def gen():
     """Video streaming generator function."""
-    global download_started
-    while not download_started:
+    while True:
         global current_camera_picture_as_jpeg
         #global od
         #frame, result = bot.od.get_detected_objects_image_and_result()
@@ -112,8 +109,6 @@ def gen():
 
 @app.route("/save_picture")
 def save_picture():
-    global download_started
-    download_started = True
     print('In save_picture')
     global current_camera_picture_as_jpeg
     # dateTimeObj = datetime.now()
