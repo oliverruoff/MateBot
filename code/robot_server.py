@@ -109,6 +109,7 @@ def gen():
 
 @app.route("/save_picture")
 def save_picture():
+    print('In save_picture')
     global current_camera_picture_as_jpeg
     dateTimeObj = datetime.now()
     timestampStr = dateTimeObj.strftime("%Y-%m-%dT%H-%M-%S")
