@@ -114,10 +114,10 @@ def save_picture():
     # dateTimeObj = datetime.now()
     # timestampStr = dateTimeObj.strftime("%Y-%m-%dT%H-%M-%S")
     folder = 'saved_pictures'
-    filename = os.path.join(app.root_path, folder, 'tmp'  + '.jpg')
+    filename = os.path.join(folder, 'tmp'  + '.jpg')
     cv2.imwrite(filename, current_camera_picture_as_jpeg)
     print('Saved picture: ', filename)
-    return send_file(filename, as_attachment=True)
+    return ""#send_file(filename, as_attachment=True)
 
 
 @app.route('/video_feed')
