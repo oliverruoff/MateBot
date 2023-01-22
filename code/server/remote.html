@@ -32,7 +32,7 @@
     <button onmousedown="move('right')" onmouseup="stop()" id="buttonRight"
       style="width:50px;height:50px;margin:1px;">►</button>
       <br>
-      <button onclick="save_picture()" id="buttonCamera"
+      <button onclick="window.location.href='{{ url_for( 'save_picture') }}';" id="buttonCamera"
       style="width:50px;height:50px;margin:1px;">📷</button>
       </div>
       </div>
