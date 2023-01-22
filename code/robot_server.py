@@ -102,19 +102,17 @@ def gen():
         global current_camera_picture_as_jpeg
         #global od
         #frame, result = bot.od.get_detected_objects_image_and_result()
-        frame = cam.get_picture()
-        ret, current_camera_picture_as_jpeg = cv2.imencode('.jpg', frame)
-        image_to_bytes = current_camera_picture_as_jpeg.tobytes()
+        current_camera_picture_as_jpeg = cam.get_picture()
+        ret, img = cv2.imencode('.jpg', current_camera_picture_as_jpeg)
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + image_to_bytes + b'\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + img.tobytes() + b'\r\n')
 
 @app.route("/save_picture")
 def save_picture():
     global current_camera_picture_as_jpeg
-    folder = "saved_pictures/"
     dateTimeObj = datetime.now()
     timestampStr = dateTimeObj.strftime("%Y-%m-%dT%H-%M-%S")
-    filename = folder + 'test' + '.jpg'
+    filename = timestampStr + '.jpg'
     cv2.imwrite(filename, current_camera_picture_as_jpeg)
     print('Saved picture: ', filename)
     return "Picture saved"
