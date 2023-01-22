@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, render_template, send_file
+from flask import Flask, request, Response, render_template, send_from_directory
 import os
 from datetime import datetime
 
@@ -114,10 +114,12 @@ def save_picture():
     # dateTimeObj = datetime.now()
     # timestampStr = dateTimeObj.strftime("%Y-%m-%dT%H-%M-%S")
     folder = 'saved_pictures'
-    filename = os.path.join(app.root_path, folder, 'tmp'  + '.jpg')
-    cv2.imwrite(filename, current_camera_picture_as_jpeg)
-    print('Saved picture: ', filename)
-    return send_file(filename, as_attachment=True)
+    file_name = 'tmp.jpg'
+    abs_directory = os.path.join(app.root_path, folder)
+    abs_file = os.path.join(abs_directory, file_name)
+    cv2.imwrite(abs_file, current_camera_picture_as_jpeg)
+    print('Saved picture: ', abs_file)
+    return send_from_directory(abs_directory, file_name)
 
 
 @app.route('/video_feed')
