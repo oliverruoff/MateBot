@@ -109,12 +109,13 @@ def gen():
 
 @app.route("/save_picture")
 def save_picture():
-    global current_camera_picture_as_jpeg
+    frame = cam.get_picture()
+    ret, pic = cv2.imencode('.jpg', frame)
     folder = "saved_pictures/"
     dateTimeObj = datetime.now()
     timestampStr = dateTimeObj.strftime("%Y-%m-%dT%H-%M-%S")
     filename = folder + timestampStr + '.jpg'
-    cv2.imwrite("test.jpg", current_camera_picture_as_jpeg)
+    cv2.imwrite("test.jpg", pic)
     print('Saved picture: ', filename)
     return "Picture saved"
 
