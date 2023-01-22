@@ -114,7 +114,7 @@ def save_picture():
     folder = "saved_pictures/"
     dateTimeObj = datetime.now()
     timestampStr = dateTimeObj.strftime("%Y-%m-%dT%H-%M-%S")
-    filename = folder + timestampStr + '.jpg'
+    filename = folder + 'test' + '.jpg'
     cv2.imwrite(filename, current_camera_picture_as_jpeg)
     print('Saved picture: ', filename)
     return "Picture saved"
