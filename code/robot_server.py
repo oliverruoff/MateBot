@@ -112,10 +112,11 @@ def save_picture():
     global current_camera_picture_as_jpeg
     folder = "saved_pictures/"
     dateTimeObj = datetime.now()
-    timestampStr = dateTimeObj.strftime("%Y-%m-%dT%H-%M-%S)")
+    timestampStr = dateTimeObj.strftime("%Y-%m-%dT%H-%M-%S")
     filename = folder + timestampStr + '.jpg'
     cv2.imwrite(filename, current_camera_picture_as_jpeg)
     print('Saved picture: ', filename)
+    return "Picture saved"
 
 
 @app.route('/video_feed')
