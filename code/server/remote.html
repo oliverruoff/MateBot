@@ -46,6 +46,11 @@
       httpGet("{{ url_for('stop') }}")
     }
 
+    function save_picture() {
+      console.log('Button Pressed: 📷') 
+      httpGet("{{ url_for('save_picture') }}")
+    }
+
     function move(mode) {
       console.log('Button Pressed: ', mode)
       if (mode == 'up') {
