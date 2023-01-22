@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, render_template
+from flask import Flask, request, Response, render_template, send_file
 import os
 from datetime import datetime
 
@@ -111,13 +111,13 @@ def gen():
 def save_picture():
     print('In save_picture')
     global current_camera_picture_as_jpeg
-    dateTimeObj = datetime.now()
-    timestampStr = dateTimeObj.strftime("%Y-%m-%dT%H-%M-%S")
+    # dateTimeObj = datetime.now()
+    # timestampStr = dateTimeObj.strftime("%Y-%m-%dT%H-%M-%S")
     folder = 'saved_pictures'
-    filename = os.path.join(folder, timestampStr  + '.jpg')
+    filename = os.path.join(folder, 'tmp'  + '.jpg')
     cv2.imwrite(filename, current_camera_picture_as_jpeg)
     print('Saved picture: ', filename)
-    return "Picture saved"
+    return send_file(filename, as_attachment=True)
 
 
 @app.route('/video_feed')
