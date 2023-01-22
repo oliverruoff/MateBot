@@ -119,7 +119,7 @@ def save_picture():
     abs_file = os.path.join(abs_directory, file_name)
     cv2.imwrite(abs_file, current_camera_picture_as_jpeg)
     print('Saved picture: ', abs_file)
-    return "" #send_file(abs_file, as_attachment=True)
+    return send_file(abs_file, as_attachment=True)
 
 
 @app.route('/video_feed')
