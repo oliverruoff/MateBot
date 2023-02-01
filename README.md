@@ -7,7 +7,7 @@ The robot runs on a raspberry pi 4, thus runs on tensorflow lite for object dete
 
 ![object_detection](docs/imgs/object_detection.png)
 
-![robot_gif](docs/imgs/robot.jpeg)
+![robot_robot](docs/imgs/robot.jpeg)
 
 ![robot_gif](docs/imgs/robot_gif.gif)
 
