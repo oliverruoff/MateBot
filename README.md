@@ -7,6 +7,12 @@ The robot runs on a raspberry pi 4, thus runs on tensorflow lite for object dete
 
 ![object_detection](docs/imgs/object_detection.png)
 
+![robot_gif](docs/imgs/robot.jpeg)
+
+![robot_gif](docs/imgs/robot_gif.gif)
+
+![robot_main](docs/imgs/robot_main.jpeg)
+
 ## Wiring
 
 - gpio_mode=GPIO.BCM
