@@ -86,3 +86,15 @@ The robot runs on a raspberry pi 4, thus runs on tensorflow lite for object dete
     * $ `sudo systemctl stop robot_server.service`
 * Check service's log
     * $ `sudo journalctl -f -u robot_server.service`
+
+## Webserver interface
+
+- Arrow buttons can be used for direct remote control
+- Camera button can be used to take a photo and directly download it
+- Enter button will execute the "move command" in the input field at the top
+     - Move commands can be either f (forward), b (backward), l (left), r (right)
+     - For f and b, the number after the char is in cm (distance)
+     - For l and r, the number after the char is in degree (angle)
+     - Commands can be concatenated by using commas
+     - E.g. command: "f50,l30,b10,r5" will move the robot 50cm forward, then 30° to the left,
+     then 10cm backward and finally 5° to the right 
