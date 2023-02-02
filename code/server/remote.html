@@ -48,7 +48,7 @@
     function move_command_clicked() {
       var command = document.getElementById("inputCommand").value;
       console.log('Move command clicked. ' + command) 
-      httpGet("{{ url_for('run_command') }}?command=" + command)
+      httpGet("{{ url_for('move_command') }}?command=" + command)
     }
 
     function stop() {
