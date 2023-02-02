@@ -19,6 +19,9 @@ app = Flask(__name__, template_folder=html_template_dir)
 
 cam = camera.camera()
 
+#if video should be streamed
+video_streaming = True
+
 # Can be saved etc.
 current_camera_picture_as_jpeg = None
 
@@ -98,7 +101,7 @@ def remote():
 
 def gen():
     """Video streaming generator function."""
-    while True:
+    while video_streaming:
         global current_camera_picture_as_jpeg
         #global od
         #frame, result = bot.od.get_detected_objects_image_and_result()
@@ -106,6 +109,7 @@ def gen():
         ret, img = cv2.imencode('.jpg', current_camera_picture_as_jpeg)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + img.tobytes() + b'\r\n')
+    return None
 
 @app.route("/save_picture")
 def save_picture():
@@ -123,9 +127,13 @@ def save_picture():
 
 @app.route('/run_command')
 def move_command():
+    global video_streaming
+    video_streaming = False
     command = request.args.get('command')
     """Executes `execute_move_command` function of robot obj."""
     bot.execute_move_command(command)
+    video_streaming = True
+    return "Moved robot."
 
 @app.route('/video_feed')
 def video_feed():
