@@ -98,3 +98,5 @@ The robot runs on a raspberry pi 4, thus runs on tensorflow lite for object dete
      - Commands can be concatenated by using commas
      - E.g. command: "f50,l30,b10,r5" will move the robot 50cm forward, then 30° to the left,
      then 10cm backward and finally 5° to the right 
+
+![server interface](docs/imgs/server_interface.png)
