@@ -121,6 +121,12 @@ def save_picture():
     print('Saved picture: ', abs_file)
     return send_file(abs_file, as_attachment=True)
 
+@app.route('/run_command')
+def move_command():
+    command = request.args.get('command')
+    """Executes `execute_move_command` function of robot obj."""
+    bot.execute_move_command(command)
+
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""

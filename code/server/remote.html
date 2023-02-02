@@ -17,6 +17,7 @@
     <img id="img_id" src="{{ url_for('video_feed') }}" style="position:relative;">
   </div>
   <div style="width: 100%;text-align: center;">
+    <input type="text" id="inputCommand" name="command" value="l50,r50,f50,b50">
     <div style="margin: 0 auto;">
     <button onmousedown="move('verticalLeft')" onmouseup="stop()" id="buttonVerticalLeft" 
       style="width:50px;height:50px;margin:1px;">◤</button>
@@ -34,6 +35,8 @@
       <br>
       <button onclick="window.location.href='{{ url_for( 'save_picture') }}';" id="buttonCamera"
       style="width:50px;height:50px;margin:1px;">📷</button>
+      <button onclick="move_command_clicked()" id="buttonCommand"
+      style="width:50px;height:50px;margin:1px;">⏎</button>
       </div>
       </div>
   </div>
@@ -42,13 +45,14 @@
     keysPressed = [];
     var oldUrl = ""
 
-    function stop() {
-      httpGet("{{ url_for('stop') }}")
+    function move_command_clicked() {
+      var command = document.getElementById("inputCommand").value;
+      console.log('Move command clicked. ' + command) 
+      httpGet("{{ url_for('save_picture') }}?command=" + command)
     }
 
-    function save_picture() {
-      console.log('Button Pressed: 📷') 
-      httpGet("{{ url_for('save_picture') }}")
+    function stop() {
+      httpGet("{{ url_for('stop') }}")
     }
 
     function move(mode) {
