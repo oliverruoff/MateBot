@@ -225,3 +225,4 @@ class Robot:
             else:
                 print('Mode:', mode, 'is not supported! Skipping this command.')
             time.sleep(pause_seconds_between_commands)
+        self.stop_continously_all_steppers()
