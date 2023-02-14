@@ -109,8 +109,7 @@ def gen():
         ret, img = cv2.imencode('.jpg', current_camera_picture_as_jpeg)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + img.tobytes() + b'\r\n')
-    yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n\r\n')
+    yield None
 
 @app.route("/save_picture")
 def save_picture():
@@ -122,6 +121,7 @@ def save_picture():
     file_name = 'tmp.jpg'
     abs_directory = os.path.join(app.root_path, folder)
     abs_file = os.path.join(abs_directory, file_name)
+    ret, img = cv2.imencode('.jpg', cam.get_picture())
     cv2.imwrite(abs_file, current_camera_picture_as_jpeg)
     print('Saved picture: ', abs_file)
     response = send_file(abs_file, as_attachment=True)
