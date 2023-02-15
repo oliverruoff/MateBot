@@ -25,9 +25,6 @@ video_streaming = True
 # Can be saved etc.
 current_camera_picture_as_jpeg = None
 
-#od = detection.Detector(model_path='object_detection/model/efficientdet_lite0.tflite',
-#    max_results=5, score_threshold=0.3, camera_width=640, camera_height=480)
-
 def init_robot():
     ####################################
     # Initializing sensors, motors, etc.
@@ -49,9 +46,9 @@ def init_robot():
 
     mpu = mpu6050.mpu6050()
 
-    #od = detection.Detector(
-    #        model_path='object_detection/model/efficientdet_lite0.tflite',
-    #        max_results=200, score_threshold=0.3, camera_width=640, camera_height=480)
+    od = detection.Detector(
+            model_path='object_detection/model/efficientdet_lite0_anchorpoint.tflite',
+            max_results=10, score_threshold=0.3, camera_width=640, camera_height=480)
 
     return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None, object_detection=None)
 
@@ -103,9 +100,10 @@ def gen():
     """Video streaming generator function."""
     while video_streaming:
         global current_camera_picture_as_jpeg
-        #global od
-        #frame, result = bot.od.get_detected_objects_image_and_result()
-        current_camera_picture_as_jpeg = cam.get_picture()
+        global od
+        frame, result = bot.od.get_detected_objects_image_and_result()
+        current_camera_picture_as_jpeg = frame
+        # current_camera_picture_as_jpeg = cam.get_picture()
         ret, img = cv2.imencode('.jpg', current_camera_picture_as_jpeg)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + img.tobytes() + b'\r\n')
