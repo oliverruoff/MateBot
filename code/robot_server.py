@@ -101,9 +101,9 @@ def gen():
     while video_streaming:
         global current_camera_picture_as_jpeg
         global od
-        frame, result = bot.od.get_detected_objects_image_and_result()
-        current_camera_picture_as_jpeg = frame
-        # current_camera_picture_as_jpeg = cam.get_picture()
+        # frame, result = bot.od.get_detected_objects_image_and_result()
+        # current_camera_picture_as_jpeg = frame
+        current_camera_picture_as_jpeg = cam.get_picture()
         ret, img = cv2.imencode('.jpg', current_camera_picture_as_jpeg)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + img.tobytes() + b'\r\n')
