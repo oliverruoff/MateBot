@@ -5,6 +5,13 @@ A bigger robot that is built around some small IKEA furniture.
 
 The robot runs on a raspberry pi 4, thus runs on tensorflow lite for object detection
 
+- I trained an `efficientdet_liet0.tflite` model to also be able to detect a kind of "anchorpoint", which will be used to recalibrate its position
+
+![od anchorpoint](docs/imgs/anchorpoint_od.png)
+
+- To train the model, I used this tutorial: https://www.youtube.com/watch?v=-ZyFYniGUsw&t=363s&ab_channel=TensorFlow and this google colab notebook: https://colab.research.google.com/github/khanhlvg/tflite_raspberry_pi/blob/main/object_detection/Train_custom_model_tutorial.ipynb#scrollTo=GZOojrDHAY1J
+- To load the label.zip to the google colab I used this example: https://www.24x7serversupport.com/blog/download-google-drive-files-using-wget/
+
 ![object_detection](docs/imgs/object_detection.png)
 
 ![robot_robot](docs/imgs/robot.jpeg)
