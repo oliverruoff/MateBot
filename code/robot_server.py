@@ -46,11 +46,11 @@ def init_robot():
 
     mpu = mpu6050.mpu6050()
 
-    od = detection.Detector(
-            model_path='object_detection/model/efficientdet_lite0_anchorpoint.tflite',
-            max_results=10, score_threshold=0.3, camera_width=640, camera_height=480)
+    #od = detection.Detector(
+    #        model_path='object_detection/model/efficientdet_lite0_anchorpoint.tflite',
+    #        max_results=10, score_threshold=0.3, camera_width=640, camera_height=480)
 
-    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None, object_detection=od)
+    return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None, object_detection=None)
 
 @app.route("/move")
 def move():
