@@ -250,6 +250,7 @@ class Robot:
         if aim_detection == None:
             print('No', object_to_search, 'found, turning.')
             self.turn_degree_gyro_supported(degree=60, clockwise=True)
+            self.search_object(object_to_search)
         else:
             print(object_to_search, 'with highest score:', aim_detection)
             bb_center = aim_detection.bounding_box.origin_x + (aim_detection.bounding_box.width/2)
@@ -260,5 +261,6 @@ class Robot:
                 direction_clockwise = True if x_diff < 0 else False
                 print('Turning for', x_diff/10, 'clockwise:', direction_clockwise)
                 self.turn_degree_gyro_supported(degree=abs(x_diff/10), clockwise=direction_clockwise)
+                self.search_object(object_to_search)
 
         
