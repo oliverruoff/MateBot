@@ -87,7 +87,27 @@ class Robot:
                     else:
                         print(object_to_follow, 'seems to be right in front of me.')
 
-
+    def turn_all_steppers_angle_v2(self, degree):
+        self.front_left_stepper.activate()
+        self.front_right_stepper.activate()
+        self.back_left_stepper.activate()
+        self.back_right_stepper.activate()
+        steps = self.front_left_stepper.get_steps_for_angle(degree)
+        for _ in range(steps):
+            self.front_left_stepper.step_high()
+            self.front_right_stepper.step_high()
+            self.back_left_stepper.step_high()
+            self.back_right_stepper.step_high()
+            time.sleep(self.front_left_stepper.step_delay_seconds)
+            self.front_left_stepper.step_low()
+            self.front_right_stepper.step_low()
+            self.back_left_stepper.step_low()
+            self.back_right_stepper.step_low()
+            time.sleep(self.front_left_stepper.step_delay_seconds)
+        self.front_left_stepper.deactivate()
+        self.front_right_stepper.deactivate()
+        self.back_left_stepper.deactivate()
+        self.back_right_stepper.deactivate()
 
     def turn_all_steppers_angle(self, degree, asynch, ramping):
         if asynch:
@@ -125,7 +145,7 @@ class Robot:
 
         print('<drive_cm> Desired_angle for all steppers:', desired_angle)
 
-        self.turn_all_steppers_angle(desired_angle, False, ramping)
+        self.turn_all_steppers_angle_v2(desired_angle)
 
     def turn_degree(self, degree, clockwise, ramping=False):
         if clockwise:
@@ -141,7 +161,7 @@ class Robot:
 
         desired_angle = (self.ROBOT_CIRCUMFERENCE_CM /
                          self.TYRE_CIRCUMFERENCE_CM) * degree * self.TURNING_ERROR_MULTIPLIER
-        self.turn_all_steppers_angle(desired_angle, False, ramping)
+        self.turn_all_steppers_angle_v2(desired_angle)
         self.heading = (self.heading +
                         degree) % 360 if clockwise else (self.heading - degree) % -360
 

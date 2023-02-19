@@ -203,6 +203,19 @@ class stepper:
             return None
         return stepper_mode_multiplier
 
+    def get_steps_for_angle(self, degree):
+        """Can be used to get the steps to turn the stepper for a certain angle.
+        Microstepping is respected, using function `_get_stepper_multiplier_from_mode()`.
+
+        Args:
+            degree (int): Angle in degree which the stepper should turn
+
+        Returns:
+            int: Number of steps that have to be taken.
+        """
+        stepper_mode_multiplier = self._get_stepper_multiplier_from_mode()
+        return int(self.steps_per_revolution/360*degree) * stepper_mode_multiplier
+
     def _turn_stepper(self, degree, ramping=False):
         """This function is for turning the stepper for a precise angle.
         This function should be called with the `turn_stepper_angle` function,
@@ -221,16 +234,26 @@ class stepper:
                 delay = self._ramping_function(i, steps)
             else:
                 delay = self.step_delay_seconds
-            GPIO.output(self.STEP, GPIO.HIGH)
+            self.step_high()
             sleep(delay)
-            GPIO.output(self.STEP, GPIO.LOW)
+            self.step_low()
             sleep(delay)
+
+    def step_high(self):
+        """Can be used to put high signal on stepper.
+        """
+        GPIO.output(self.STEP, GPIO.HIGH)
+
+    def step_low(self):
+        """Can be used to put low signal on stepper.
+        """
+        GPIO.output(self.STEP, GPIO.LOW)
 
     def make_one_step(self):
         """Executes exactly one full step.
         """
         self.activate_stepper()
-        GPIO.output(self.STEP, GPIO.HIGH)
+        self.step_high()
         sleep(self.step_delay_seconds)
-        GPIO.output(self.STEP, GPIO.LOW)
+        self.step_low()
         sleep(self.step_delay_seconds)
