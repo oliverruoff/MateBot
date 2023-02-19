@@ -34,15 +34,28 @@ def init_robot():
     od = detection.Detector(
             model_path='object_detection/model/efficientdet_lite0_anchorpoint.tflite',
             max_results=10, score_threshold=0.25, camera_width=640, camera_height=480)
-            
+
     return robot.Robot(front_left_stepper, front_right_stepper, back_left_stepper, back_right_stepper, mpu, None, od)
 
 try:
     rob = init_robot()
 
     while True:
-        print(rob.od.get_detected_objects_image_and_result()[1])
+        
+        aim_detection = None
+        max_score = 0
+        detections = rob.od.get_detected_objects_image_and_result()[1].detections
+        for i,d in enumerate(detections):
+            bb = d.bounding_box
+            c = d.categories[0]
+            if c.category_name == 'anchorpoint':
+                if c.score > max_score:
+                    max_score = c.score
+                    aim_detection = d
+        print(d)
+        print('__________')
         time.sleep(0.1)
+
     # rob.execute_move_command('f120,r90,f935,l90,f120', pause_seconds_between_commands=0.1)
 
 
