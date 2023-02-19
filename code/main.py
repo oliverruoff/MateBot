@@ -52,7 +52,7 @@ try:
                 if c.score > max_score:
                     max_score = c.score
                     aim_detection = d
-        print(d)
+        print(aim_detection)
         print('__________')
         time.sleep(0.1)
 
