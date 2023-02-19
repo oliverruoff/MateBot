@@ -40,7 +40,7 @@ def init_robot():
 try:
     rob = init_robot()
 
-    rob.search_object('anchorpoint')
+    rob.follow_object_continously('person')
 
     # rob.execute_move_command('f120,r90,f935,l90,f120', pause_seconds_between_commands=0.1)
 
