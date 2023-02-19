@@ -40,8 +40,9 @@ def init_robot():
 try:
     rob = init_robot()
 
-    print(rob.od.get_detected_objects_image_and_result()[1])
-
+    while True:
+        print(rob.od.get_detected_objects_image_and_result()[1])
+        time.sleep(0.1)
     # rob.execute_move_command('f120,r90,f935,l90,f120', pause_seconds_between_commands=0.1)
 
 
