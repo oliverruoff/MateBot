@@ -228,6 +228,16 @@ class Robot:
         self.stop_continously_all_steppers()
 
     def search_object(self, object_to_search):
+        """Looking for an object using the object detection model in the od obj. for this robot.
+        The object to search should be a category in that object detection model.
+        Example: `anchorpoint`. It will try to detect it, if it's not detected, it will turn
+        60° clockwise. If it detects multiple objects of the searched category, it will focus on the
+        one with the highest score. And then try to turn the robot to it. 
+        Stops when it's close to centering it (x_diff < self.camera_width/20).
+
+        Args:
+            object_to_search (str): Category appearing in the object detection model used.
+        """
         aim_detection = None
         max_score = 0
         detections = self.od.get_detected_objects_image_and_result()[1].detections
@@ -242,5 +252,13 @@ class Robot:
             self.turn_degree_gyro_supported(degree=60, clockwise=True)
         else:
             print(object_to_search, 'with highest score:', aim_detection)
-            bb_center = d.bounding_box
+            bb_center = aim_detection.bounding_box.origin_x + (aim_detection.bounding_box.width/2)
+            x_diff = (self.camera_width/2) - bb_center
+            if x_diff < self.camera_width/20:
+                print(object_to_search, 'seems to be right in front of me')
+            else:
+                direction_clockwise = True if x_diff < 0 else False
+                print('Turning for', x_diff/10, 'clockwise:', direction_clockwise)
+                self.turn_degree_gyro_supported(degree=abs(x_diff/10), clockwise=direction_clockwise)
+
         

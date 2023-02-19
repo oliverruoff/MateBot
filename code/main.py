@@ -40,22 +40,7 @@ def init_robot():
 try:
     rob = init_robot()
 
-    while True:
-        aim_detection = None
-        max_score = 0
-        detections = rob.od.get_detected_objects_image_and_result()[1].detections
-        for i,d in enumerate(detections):
-            bb = d.bounding_box
-            c = d.categories[0]
-            if c.category_name == 'anchorpoint':
-                if c.score > max_score:
-                    max_score = c.score
-                    aim_detection = d
-        print('Max found anchorpoint:', aim_detection)
-        if aim_detection is not None:
-            print(aim_detection.bounding_box)
-        print('__________')
-        time.sleep(0.1)
+    rob.search_object('anchorpoint')
 
     # rob.execute_move_command('f120,r90,f935,l90,f120', pause_seconds_between_commands=0.1)
 
