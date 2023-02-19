@@ -52,7 +52,8 @@ try:
                     max_score = c.score
                     aim_detection = d
         print('Max found anchorpoint:', aim_detection)
-        print(aim_detection.bounding_box)
+        if aim_detection is not None:
+            print(aim_detection.bounding_box)
         print('__________')
         time.sleep(0.1)
 
