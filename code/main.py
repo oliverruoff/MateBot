@@ -41,7 +41,6 @@ try:
     rob = init_robot()
 
     while True:
-        
         aim_detection = None
         max_score = 0
         detections = rob.od.get_detected_objects_image_and_result()[1].detections
@@ -52,7 +51,8 @@ try:
                 if c.score > max_score:
                     max_score = c.score
                     aim_detection = d
-        print(aim_detection)
+        print('Max found anchorpoint:', aim_detection)
+        print(aim_detection.bounding_box)
         print('__________')
         time.sleep(0.1)
 

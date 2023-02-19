@@ -226,3 +226,21 @@ class Robot:
                 print('Mode:', mode, 'is not supported! Skipping this command.')
             time.sleep(pause_seconds_between_commands)
         self.stop_continously_all_steppers()
+
+    def search_object(self, object_to_search):
+        aim_detection = None
+        max_score = 0
+        detections = self.od.get_detected_objects_image_and_result()[1].detections
+        for d in detections:
+            c = d.categories[0]
+            if c.category_name == object_to_search:
+                if c.score > max_score:
+                    max_score = c.score
+                    aim_detection = d
+        if aim_detection == None:
+            print('No', object_to_search, 'found, turning.')
+            self.turn_degree_gyro_supported(degree=60, clockwise=True)
+        else:
+            print(object_to_search, 'with highest score:', aim_detection)
+            bb_center = d.bounding_box
+        
