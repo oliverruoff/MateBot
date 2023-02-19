@@ -255,7 +255,7 @@ class Robot:
             print(object_to_search, 'with highest score:', aim_detection)
             bb_center = aim_detection.bounding_box.origin_x + (aim_detection.bounding_box.width/2)
             x_diff = (self.camera_width/2) - bb_center
-            if x_diff < self.camera_width/20:
+            if abs(x_diff) < self.camera_width/20:
                 print(object_to_search, 'seems to be right in front of me')
             else:
                 direction_clockwise = True if x_diff < 0 else False
