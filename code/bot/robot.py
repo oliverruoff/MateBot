@@ -227,7 +227,7 @@ class Robot:
             time.sleep(pause_seconds_between_commands)
         self.stop_continously_all_steppers()
 
-    def search_object(self, object_to_search):
+    def search_object(self, object_to_search, min_score=0.38):
         """Looking for an object using the object detection model in the od obj. for this robot.
         The object to search should be a category in that object detection model.
         Example: `anchorpoint`. It will try to detect it, if it's not detected, it will turn
@@ -237,6 +237,7 @@ class Robot:
 
         Args:
             object_to_search (str): Category appearing in the object detection model used.
+            min_score (float): Minimal score the object should have, else it's not respected.
         """
         aim_detection = None
         max_score = 0
@@ -247,7 +248,7 @@ class Robot:
                 if c.score > max_score:
                     max_score = c.score
                     aim_detection = d
-        if aim_detection == None:
+        if aim_detection == None or max_score < min_score:
             print('No', object_to_search, 'found, turning.')
             self.turn_degree_gyro_supported(degree=60, clockwise=True)
             self.search_object(object_to_search)
@@ -255,7 +256,7 @@ class Robot:
             print(object_to_search, 'with highest score:', aim_detection)
             bb_center = aim_detection.bounding_box.origin_x + (aim_detection.bounding_box.width/2)
             x_diff = (self.camera_width/2) - bb_center
-            if abs(x_diff) < self.camera_width/15:
+            if abs(x_diff) < self.camera_width/15: # divisor defines tolerance. --> smaller means bigger tolerance
                 print(object_to_search, 'seems to be right in front of me')
             else:
                 direction_clockwise = True if x_diff < 0 else False
