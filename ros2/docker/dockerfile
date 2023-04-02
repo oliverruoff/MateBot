@@ -6,6 +6,7 @@ FROM ros:humble-ros-core-jammy
 RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential \
     git \
+    usbutils \
     python3-colcon-common-extensions \
     python3-colcon-mixin \
     python3-rosdep \
