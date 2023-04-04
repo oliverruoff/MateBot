@@ -1,6 +1,6 @@
 # This is an auto generated Dockerfile for ros:ros-base
 # generated from docker_images_ros2/create_ros_image.Dockerfile.em
-FROM osrf/ubuntu_arm64:jammy
+FROM husarion/rviz2:humble-nightly
 
 # install bootstrap tools
 RUN apt-get update && apt-get install --no-install-recommends -y \
@@ -17,9 +17,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 RUN rosdep update --rosdistro $ROS_DISTRO
 
 # setup colcon mixin and metadata
-# RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
+RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
 RUN colcon mixin update
-# RUN colcon metadata add default https://raw.githubusercontent.com/colcon/colcon-metadata-repository/master/index.yaml 
+RUN colcon metadata add default https://raw.githubusercontent.com/colcon/colcon-metadata-repository/master/index.yaml 
 RUN colcon metadata update
 
 # install ros2 packages
