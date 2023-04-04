@@ -6,7 +6,6 @@ FROM ros:humble-ros-core-jammy
 RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential \
     git \
-    usbutils \
     python3-colcon-common-extensions \
     python3-colcon-mixin \
     python3-rosdep \
@@ -29,3 +28,13 @@ RUN colcon mixin add default \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-ros-base=0.10.0-1* \
     && rm -rf /var/lib/apt/lists/*
+
+# load lidar package 
+RUN mkdir -p ldlidar_ros2_ws/src \
+    cd ldlidar_ros2_ws/src \
+    git clone  https://github.com/ldrobotSensorTeam/ldlidar_ros2.git \
+    cd ldlidar_ros2 \
+    git submodule update --init --recursive \
+    sudo chmod 777 /dev/ttyUSB0 \
+    colcon build \
+    source install/local_setup.bash

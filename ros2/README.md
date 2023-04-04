@@ -23,5 +23,5 @@ docker run -it --net=host \
     --env="QT_X11_NO_MITSHM=1" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --privileged -v /dev/bus/usb:/dev/bus/usb \
-    oruoff/ros
+    matebot:ros
 ```
