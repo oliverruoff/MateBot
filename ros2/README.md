@@ -30,3 +30,9 @@ docker run -it --net=host \
     --privileged -v /dev/bus/usb:/dev/bus/usb \
     matebot:ros
 ```
+
+___________
+
+- docker-compose build --no-cache
+- docker-compose up -d
+- docker exec -it f2b bash
