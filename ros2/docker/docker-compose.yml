@@ -11,3 +11,5 @@ services:
    devices:
      - /dev/ttyUSB0:/dev/ttyUSB0
    tty: true
+   environment:
+      - DISPLAY
