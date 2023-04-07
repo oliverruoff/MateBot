@@ -3,8 +3,8 @@
 FROM osrf/ros:noetic-desktop
 
 # install bootstrap tools
-RUN apt-get update apt-transport-https
-RUN apt-get install --no-install-recommends -y apt-transport-https \
+RUN apt-get -y update 
+RUN apt-get install --no-install-recommends -y \
     git \
     python3-pip 
 
