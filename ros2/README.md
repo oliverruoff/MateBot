@@ -2,6 +2,11 @@
 
 ## Docker
 
+- Using docker image: humble desktop jammy
+    - humble -> ro2 distribution
+    - desktop -> for graphics
+    - jammy -> arm architecture (raspberry)
+
 ### Setup
 
 - Install Docker:
