@@ -11,5 +11,4 @@ docker run -it \
     --volume="XAUTH=$XAUTH" \
     --net=host \
     --privileged \
-    rosbot \
     bash
