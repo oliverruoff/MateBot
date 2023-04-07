@@ -11,5 +11,5 @@ docker run -it \
     --volume="XAUTH=$XAUTH" \
     --net=host \
     --privileged \
-    matebot:ros \
+    rosbot \
     bash
