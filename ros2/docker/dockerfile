@@ -3,8 +3,8 @@
 FROM osrf/ros:noetic-desktop
 
 # install bootstrap tools
-RUN apt-get -y update 
-RUN apt-get install --no-install-recommends -y \
+RUN apt-get update 
+RUN apt-get install -y \
     git \
     python3-pip 
 
