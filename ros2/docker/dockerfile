@@ -1,10 +1,12 @@
 # This is an auto generated Dockerfile for ros:ros-base
 # generated from docker_images_ros2/create_ros_image.Dockerfile.em
-FROM arm64v8/ros:humble-perception-jammy
+# FROM arm64v8/ros:humble-perception-jammy
+FROM ros:humble-ros-core-jammy
   
 # Installing OS packages
 RUN apt-get update 
 RUN apt-get install -y \
+    ros-humble-desktop \
     git \
     python3-pip \
     ros-$ROS_DISTRO-rviz2

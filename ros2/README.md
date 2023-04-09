@@ -16,6 +16,7 @@
     - sudo usermod -aG docker pi(user)
     - sudo systemctl unmask docker
     - sudo chmod 666 /var/run/docker.sock
+    - pip3 -v install docker-compose
     - sudo systemctl start docker
     - reboot now
 
@@ -31,7 +32,7 @@ docker run -it --net=host \
     matebot:ros
 ```
 
-___________
+## Run using docker-compose
 
 - docker-compose build --no-cache
 - docker-compose up -d
