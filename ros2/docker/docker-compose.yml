@@ -3,7 +3,7 @@ services:
  ros2:
    build: .
    # restart: no
-   network_mode: "host"
+   network_mode: host
    #ports: 
    #  - "3332:3332"
    volumes:
