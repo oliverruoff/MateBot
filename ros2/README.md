@@ -40,7 +40,7 @@ docker run -it --net=host \
 
 ## Run using docker command:
 
-- docker run -it --net=host imageName bash
+- docker run -it --net=host -v /dev/bus/usb:/dev/bus/usb imageName bash
 
 ## Run lidar node in docker
 
