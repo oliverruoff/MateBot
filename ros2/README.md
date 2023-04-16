@@ -37,3 +37,11 @@ docker run -it --net=host \
 - docker-compose build --no-cache
 - docker-compose up -d
 - docker exec -it f2b bash
+
+## Run using docker command:
+
+- docker run -it --net=host imageName bash
+
+## Run lidar node in docker
+
+- ros2 launch ldlidar_ros2 ld19.launch.py
