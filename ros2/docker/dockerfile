@@ -45,6 +45,6 @@ RUN     git submodule update --init --recursive
 # RUN     sudo chmod 777 /dev/ttyUSB0
 WORKDIR /ldlidar_ros2_ws/
 RUN     source /opt/ros/$ROS_DISTRO/setup.bash
-RUN     colcon build 
+RUN     . /opt/ros/$ROS_DISTRO/setup.bash && colcon build
 RUN     source /ldlidar_ros2_ws/src/ldlidar_ros2/install/local_setup.bash
 RUN     echo "source /ldlidar_ros2_ws/src/ldlidar_ros2/install/local_setup.bash" >> ~/.bashrc
