@@ -4,14 +4,6 @@ services:
    build: .
    # restart: no
    network_mode: host
-   #ports: 
-   #  - "3332:3332"
-   volumes:
-     - /tmp/.X11-unix:/tmp/.X11-unix:rw
-   #  - /home/kev/cubie-1:/ros2
    devices:
      - /dev/ttyUSB0:/dev/ttyUSB0
    tty: true
-   environment:
-      - DISPLAY
-      - QT_X11_NO_MITSHM=1
