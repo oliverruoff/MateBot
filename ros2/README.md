@@ -58,4 +58,4 @@ c:\opt\ros\foxy\x64\share\gazebo\setup.bat
 set "SDF_PATH=c:\opt\ros\foxy\x64\share\sdformat\1.6"
 ```
 
-- run rviz2: ros2 run rviz2 rviz2
+- run rviz2: `ros2 run rviz2 rviz2`
