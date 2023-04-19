@@ -47,3 +47,4 @@ WORKDIR /ldlidar_ros2_ws/
 RUN     source /opt/ros/$ROS_DISTRO/setup.bash && colcon build
 RUN     source /ldlidar_ros2_ws/install/local_setup.bash
 RUN     echo "source /ldlidar_ros2_ws/install/local_setup.bash" >> ~/.bashrc
+RUN     ROS_DISTRO=$ROS_DISTRO
