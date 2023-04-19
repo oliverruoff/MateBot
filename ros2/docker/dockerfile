@@ -44,7 +44,9 @@ WORKDIR /ldlidar_ros2_ws/src/ldlidar_ros2
 RUN     git submodule update --init --recursive
 WORKDIR /ldlidar_ros2_ws/
 # RUN     sudo chmod 777 /dev/ttyUSB0
-RUN     . /opt/ros/$ROS_DISTRO/setup.bash && colcon build
+RUN     source /opt/ros/$ROS_DISTRO/setup.bash && colcon build
 RUN     source /ldlidar_ros2_ws/install/local_setup.bash
 RUN     echo "source /ldlidar_ros2_ws/install/local_setup.bash" >> ~/.bashrc
-RUN     source /ldlidar_ros2_ws/install/local_setup.bash && ros2 launch ldlidar_ros2 ld19.launch.py
+RUN     source /opt/ros/$ROS_DISTRO/setup.bash && \
+        source /ldlidar_ros2_ws/install/local_setup.bash && \
+        ros2 launch ldlidar_ros2 ld19.launch.py
