@@ -40,7 +40,10 @@ docker run -it --net=host \
 
 ## Run using docker command:
 
-- docker run -it --net=host --device=/dev/ttyUSB0  imageName bash
+- `docker run -it --net=host --device=/dev/ttyUSB0  imageName bash`
+- Or to run container and instantly run lidar command:
+    - `docker-compose up -d`
+
 
 ## Run lidar node in docker
 
@@ -50,7 +53,8 @@ docker run -it --net=host \
 
 - Start "x64 Native Tools Command Prompt for VS 2019"  as admin
 - paste:
-```:: activate the ROS 2 environment
+```
+:: activate the ROS 2 environment
 c:\opt\ros\foxy\x64\setup.bat
 
 :: activate the Gazebo simulation environment
