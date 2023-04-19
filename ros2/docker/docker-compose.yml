@@ -7,3 +7,4 @@ services:
    devices:
      - /dev/ttyUSB0:/dev/ttyUSB0
    tty: true
+   entrypoint: [ "bash", "-c", "ros2 launch ldlidar_ros2 ld19.launch.py"]
