@@ -2,6 +2,7 @@ version: "3.9"
 services:
  ros2:
    build: .
+   container_name: ros2lidar
    # restart: no
    network_mode: host
    devices:
