@@ -40,8 +40,22 @@ docker run -it --net=host \
 
 ## Run using docker command:
 
-- docker run -it --net=host -v /dev/bus/usb:/dev/bus/usb imageName bash
+- docker run -it --net=host --device=/dev/ttyUSB0  imageName bash
 
 ## Run lidar node in docker
 
 - ros2 launch ldlidar_ros2 ld19.launch.py
+
+## Run ROS2 on windows
+
+- Start "x64 Native Tools Command Prompt for VS 2019"  as admin
+- paste:
+```:: activate the ROS 2 environment
+c:\opt\ros\foxy\x64\setup.bat
+
+:: activate the Gazebo simulation environment
+c:\opt\ros\foxy\x64\share\gazebo\setup.bat
+set "SDF_PATH=c:\opt\ros\foxy\x64\share\sdformat\1.6"
+```
+
+- run rviz2: ros2 run rviz2 rviz2
