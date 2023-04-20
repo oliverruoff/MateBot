@@ -5,4 +5,4 @@ services:
    container_name: ros2map
    # restart: no
    network_mode: host
-   entrypoint: ["bash"]
+   tty: true
