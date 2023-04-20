@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+ ros2:
+   build: .
+   container_name: ros2map
+   # restart: no
+   network_mode: host
+   #entrypoint: [ "bash", "-c", "source /opt/ros/humble/setup.bash && source /ldlidar_ros2_ws/install/local_setup.bash && ros2 launch ldlidar_ros2 ld19.launch.py"]
