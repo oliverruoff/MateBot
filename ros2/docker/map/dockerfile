@@ -1,36 +1,37 @@
 # This is an auto generated Dockerfile for ros:ros-base
 # generated from docker_images_ros2/create_ros_image.Dockerfile.em
-FROM ros:humble-ros-core-jammy
+FROM      ros:humble-ros-core-jammy
 
 # Telling docker to use bash instead of shell
-SHELL ["/bin/bash", "-c"]
+SHELL     ["/bin/bash", "-c"]
 
 # install bootstrap tools
-RUN apt-get update && apt-get install --no-install-recommends -y \
-    build-essential \
-    git \
-    nano \
-    python3-colcon-common-extensions \
-    python3-colcon-mixin \
-    python3-rosdep \
-    python3-vcstool \
-    && rm -rf /var/lib/apt/lists/*
+RUN       apt-get update && apt-get install --no-install-recommends -y \
+          build-essential \
+          git \
+          nano \
+          python3-colcon-common-extensions \
+          python3-colcon-mixin \
+          python3-rosdep \
+          python3-vcstool \
+          && rm -rf /var/lib/apt/lists/*
 
 # bootstrap rosdep
-RUN rosdep init && \
-  rosdep update --rosdistro $ROS_DISTRO
+RUN       rosdep init && \
+          rosdep update --rosdistro $ROS_DISTRO
 
 # setup colcon mixin and metadata
-RUN colcon mixin add default \
-      https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && \
-    colcon mixin update && \
-    colcon metadata add default \
-      https://raw.githubusercontent.com/colcon/colcon-metadata-repository/master/index.yaml && \
-    colcon metadata update
+RUN       colcon mixin add default \
+          https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && \
+          colcon mixin update && \
+          colcon metadata add default \
+          https://raw.githubusercontent.com/colcon/colcon-metadata-repository/master/index.yaml && \
+          colcon metadata update
 
 # sourcing ros in bashrc
-RUN sudo echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /root/.bashrc
+RUN       sudo echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /root/.bashrc
 
-# creating ros2map package
-RUN mkdir -p /ros2map/src
+# Setting up map node
+RUN       apt install ros-humble-slam-toolbox
+RUN       ros2 launch slam_toolbox online_async_launch.py
 
