@@ -9,6 +9,7 @@ SHELL ["/bin/bash", "-c"]
 RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential \
     git \
+    nano \
     python3-colcon-common-extensions \
     python3-colcon-mixin \
     python3-rosdep \
@@ -27,12 +28,9 @@ RUN colcon mixin add default \
       https://raw.githubusercontent.com/colcon/colcon-metadata-repository/master/index.yaml && \
     colcon metadata update
 
-# install ros2 packages
-#RUN apt-get update && apt-get install -y --no-install-recommends \
-#    ros-humble-desktop=0.10.0-1* 
-#RUN apt-get install --no-install-recommends -y ros-$ROS_DISTRO-rviz2
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends ros-humble-navigation2 ros-humble-nav2-bringup
-RUN apt-get install nano -y --no-install-recommends
-RUN sudo echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc
+# sourcing ros in bashrc
+RUN sudo echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /root/.bashrc
+
+# creating ros2map package
+RUN mkdir -p /ros2map/src
 
